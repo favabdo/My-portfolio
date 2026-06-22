@@ -9,7 +9,7 @@ export default function AboutSection() {
       id="about"
       className="relative min-h-screen flex flex-col items-center justify-center px-5 sm:px-8 md:px-10 py-20 overflow-hidden"
     >
-      {/* Decorative corner icons */}
+      {/* Decorative corner icons — AI / ML / CS themed */}
       <FadeIn
         delay={0.1}
         x={-80}
@@ -17,7 +17,7 @@ export default function AboutSection() {
         duration={0.9}
         className="absolute top-[4%] left-[1%] sm:left-[2%] md:left-[4%] w-[120px] sm:w-[160px] md:w-[210px]"
       >
-        <DecorIcon type="neural" />
+        <DecorIcon type="graph" />
       </FadeIn>
 
       <FadeIn
@@ -27,7 +27,7 @@ export default function AboutSection() {
         duration={0.9}
         className="absolute bottom-[8%] left-[3%] sm:left-[6%] md:left-[10%] w-[100px] sm:w-[140px] md:w-[180px]"
       >
-        <DecorIcon type="chip" />
+        <DecorIcon type="code" />
       </FadeIn>
 
       <FadeIn
@@ -37,7 +37,7 @@ export default function AboutSection() {
         duration={0.9}
         className="absolute top-[4%] right-[1%] sm:right-[2%] md:right-[4%] w-[120px] sm:w-[160px] md:w-[210px]"
       >
-        <DecorIcon type="lens" />
+        <DecorIcon type="matrix" />
       </FadeIn>
 
       <FadeIn
@@ -47,7 +47,7 @@ export default function AboutSection() {
         duration={0.9}
         className="absolute bottom-[8%] right-[3%] sm:right-[6%] md:right-[10%] w-[130px] sm:w-[170px] md:w-[220px]"
       >
-        <DecorIcon type="orbit" />
+        <DecorIcon type="radar" />
       </FadeIn>
 
       {/* Heading + text + button */}

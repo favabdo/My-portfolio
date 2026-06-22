@@ -3,7 +3,7 @@ import Magnet from "../components/Magnet";
 import ContactButton from "../components/ContactButton";
 import portraitImg from "../assets/images/portrait.png";
 
-const navLinks = ["Experience", "Skills", "About", "Education", "Certificates", "Services", "Projects"];
+const navLinks = ["Experience", "Projects", "Education", "Skills", "About", "Services"];
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {

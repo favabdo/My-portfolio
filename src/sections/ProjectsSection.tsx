@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import FadeIn from "../components/FadeIn";
 import ProjectCard, { type ProjectData } from "../components/ProjectCard";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const projects: ProjectData[] = [
   {
@@ -16,16 +18,69 @@ const projects: ProjectData[] = [
     type: "Personal",
     visuals: ["camera", "code", "flow"],
   },
-  {
-    number: "03",
-    category: "Coming Soon",
-    name: "Next Project",
-    type: "Personal",
-    visuals: ["code", "table", "chart"],
-  },
 ];
 
+function NextProjectCard({ index, totalCards }: { index: number; totalCards: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "start start"],
+  });
+  const targetScale = 1 - (totalCards - 1 - index) * 0.03;
+  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+
+  const scrollToContact = () => {
+    const el = document.querySelector("a[href^='mailto'], a[href^='https://wa.me']") as HTMLAnchorElement | null;
+    if (el) el.click();
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className="sticky h-[85vh] flex items-center"
+      style={{ top: `${6 + index * 1.75}rem` }}
+    >
+      <motion.div
+        style={{ scale }}
+        className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-dashed border-[#D7E2EA]/30 bg-[#0C0C0C] flex flex-col items-center justify-center gap-6 sm:gap-8 p-8 sm:p-12"
+        style={{ minHeight: "340px" }}
+      >
+        <span
+          className="font-black text-[#D7E2EA]/20 leading-none"
+          style={{ fontSize: "clamp(2.5rem, 8vw, 100px)" }}
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        <div className="flex flex-col items-center gap-3 text-center">
+          <p
+            className="text-[#D7E2EA]/50 uppercase tracking-[0.3em] font-medium"
+            style={{ fontSize: "clamp(0.7rem, 1.5vw, 1rem)" }}
+          >
+            Next Project
+          </p>
+          <h3
+            className="text-[#D7E2EA] font-black uppercase leading-none tracking-tight"
+            style={{ fontSize: "clamp(1.8rem, 5vw, 60px)" }}
+          >
+            Should Be Yours
+          </h3>
+        </div>
+
+        <button
+          onClick={scrollToContact}
+          className="mt-2 px-8 py-3 rounded-full border border-[#D7E2EA]/40 text-[#D7E2EA] uppercase tracking-widest text-sm font-semibold transition-all duration-300 hover:bg-[#D7E2EA] hover:text-[#0C0C0C] hover:border-transparent"
+        >
+          Contact Me
+        </button>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function ProjectsSection() {
+  const total = projects.length + 1; // +1 for next project card
+
   return (
     <section
       id="projects"
@@ -36,14 +91,15 @@ export default function ProjectsSection() {
           className="hero-heading font-black uppercase tracking-tight text-center leading-none mb-16 sm:mb-20"
           style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
         >
-          Project
+          Projects
         </h2>
       </FadeIn>
 
       <div className="relative max-w-5xl mx-auto">
         {projects.map((project, i) => (
-          <ProjectCard key={project.number} project={project} index={i} totalCards={projects.length} />
+          <ProjectCard key={project.number} project={project} index={i} totalCards={total} />
         ))}
+        <NextProjectCard index={projects.length} totalCards={total} />
       </div>
     </section>
   );
