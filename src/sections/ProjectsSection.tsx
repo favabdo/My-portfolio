@@ -41,9 +41,8 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
       style={{ top: `${6 + index * 1.75}rem` }}
     >
       <motion.div
-        style={{ scale }}
+        style={{ scale, minHeight: "340px" }}
         className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-dashed border-[#D7E2EA]/30 bg-[#0C0C0C] flex flex-col items-center justify-center gap-6 sm:gap-8 p-8 sm:p-12"
-        style={{ minHeight: "340px" }}
       >
         <span
           className="font-black text-[#D7E2EA]/20 leading-none"
