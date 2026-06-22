@@ -1,5 +1,5 @@
 import HeroSection from "./sections/HeroSection";
-import SkillsSection from "./sections/SkillsSection";
+import MarqueeSection from "./sections/MarqueeSection";
 import AboutSection from "./sections/AboutSection";
 import CertificatesSection from "./sections/CertificatesSection";
 import ServicesSection from "./sections/ServicesSection";
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="bg-[#0C0C0C]" style={{ overflowX: "clip" }}>
       <HeroSection />
-      <SkillsSection />
+      <MarqueeSection />
       <AboutSection />
       <CertificatesSection />
       <ServicesSection />

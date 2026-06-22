@@ -7,32 +7,93 @@ interface TechItem {
   symbol: string;
 }
 
-const techStack: TechItem[] = [
-  { label: "Python", accent: "#3776AB", symbol: "Py" },
-  { label: "TensorFlow / Keras", accent: "#FF6F00", symbol: "TF" },
-  { label: "OpenCV", accent: "#5C9DD5", symbol: "CV" },
-  { label: "scikit-learn", accent: "#F89939", symbol: "sk" },
-  { label: "Pandas & NumPy", accent: "#7FA8D9", symbol: "Pd" },
-  { label: "FastAPI", accent: "#05998b", symbol: "API" },
-  { label: "Django", accent: "#3FA86A", symbol: "Dj" },
-  { label: "SQL Server", accent: "#C9472B", symbol: "DB" },
-  { label: "Computer Vision", accent: "#9B7BD9", symbol: "👁" },
-  { label: "NLP & RAG", accent: "#D9A23F", symbol: "NLP" },
-  { label: "AI Agents", accent: "#D75AA0", symbol: "AI" },
-  { label: "ESP32 & IoT", accent: "#4FB3BF", symbol: "IoT" },
-  { label: "Firebase", accent: "#E8A33D", symbol: "Fb" },
-  { label: "Docker", accent: "#3FA9D9", symbol: "Dk" },
-  { label: "Git & GitHub", accent: "#C9C9C9", symbol: "Git" },
-  { label: "Render & Fly.io", accent: "#5D6BD9", symbol: "Rn" },
-  { label: "Flutter", accent: "#3FB6E8", symbol: "Fl" },
-  { label: "Deep Learning", accent: "#D96B5A", symbol: "DL" },
-  { label: "Transfer Learning", accent: "#7BC9A0", symbol: "TL" },
-  { label: "C++", accent: "#6E9CD9", symbol: "C++" },
-  { label: "Claude Code", accent: "#CC785C", symbol: "Cc" },
+// Programming Languages — blue
+const programmingLanguages: TechItem[] = [
+  { label: "Python", accent: "#5C9DD5", symbol: "Py" },
+  { label: "SQL", accent: "#5C9DD5", symbol: "SQL" },
+  { label: "C++", accent: "#5C9DD5", symbol: "C++" },
 ];
 
-const row1 = [...techStack.slice(0, 11), ...techStack.slice(0, 11), ...techStack.slice(0, 11)];
-const row2 = [...techStack.slice(11), ...techStack.slice(11), ...techStack.slice(11)];
+// Machine Learning — purple
+const machineLearning: TechItem[] = [
+  { label: "Supervised & Unsupervised Learning", accent: "#9B7BD9", symbol: "ML" },
+  { label: "Pandas & NumPy", accent: "#9B7BD9", symbol: "Pd" },
+  { label: "Matplotlib", accent: "#9B7BD9", symbol: "Mp" },
+  { label: "scikit-learn", accent: "#9B7BD9", symbol: "sk" },
+  { label: "OpenCV", accent: "#9B7BD9", symbol: "CV" },
+  { label: "Computer Vision", accent: "#9B7BD9", symbol: "👁" },
+  { label: "Deep Learning", accent: "#9B7BD9", symbol: "DL" },
+  { label: "NLP", accent: "#9B7BD9", symbol: "NLP" },
+  { label: "RAG Systems", accent: "#9B7BD9", symbol: "RAG" },
+  { label: "AI Agents", accent: "#9B7BD9", symbol: "AI" },
+];
+
+// Backend — green
+const backend: TechItem[] = [
+  { label: "FastAPI", accent: "#3FA86A", symbol: "API" },
+  { label: "Flask", accent: "#3FA86A", symbol: "Fl" },
+  { label: "Django", accent: "#3FA86A", symbol: "Dj" },
+];
+
+// Tools — orange
+const tools: TechItem[] = [
+  { label: "Google Colab", accent: "#D9A23F", symbol: "Co" },
+  { label: "Firebase", accent: "#D9A23F", symbol: "Fb" },
+  { label: "Git", accent: "#D9A23F", symbol: "Git" },
+  { label: "GitHub", accent: "#D9A23F", symbol: "Gh" },
+  { label: "Docker", accent: "#D9A23F", symbol: "Dk" },
+  { label: "Render", accent: "#D9A23F", symbol: "Rn" },
+  { label: "Fly.io", accent: "#D9A23F", symbol: "Fly" },
+  { label: "SQL Server", accent: "#D9A23F", symbol: "DB" },
+  { label: "Claude Code", accent: "#D9A23F", symbol: "Cc" },
+  { label: "ChatGPT", accent: "#D9A23F", symbol: "GPT" },
+];
+
+// Programming Concepts — pink
+const programmingConcepts: TechItem[] = [
+  { label: "OOP", accent: "#D75AA0", symbol: "OOP" },
+  { label: "Data Structures", accent: "#D75AA0", symbol: "DS" },
+  { label: "Algorithms", accent: "#D75AA0", symbol: "Al" },
+  { label: "Backend Development", accent: "#D75AA0", symbol: "Be" },
+  { label: "Software Development", accent: "#D75AA0", symbol: "Sw" },
+];
+
+// IoT & Embedded Systems — teal
+const iot: TechItem[] = [
+  { label: "ESP32", accent: "#4FB3BF", symbol: "ESP" },
+  { label: "Sensors Integration", accent: "#4FB3BF", symbol: "Sn" },
+];
+
+// Data Science — red/orange
+const dataScience: TechItem[] = [
+  { label: "Data Preprocessing", accent: "#D96B5A", symbol: "Dp" },
+  { label: "EDA", accent: "#D96B5A", symbol: "EDA" },
+  { label: "Feature Engineering", accent: "#D96B5A", symbol: "Fe" },
+];
+
+// Soft Skills — grey
+const softSkills: TechItem[] = [
+  { label: "Problem Solving", accent: "#C9C9C9", symbol: "Ps" },
+  { label: "Analytical Thinking", accent: "#C9C9C9", symbol: "At" },
+];
+
+const allSkills: TechItem[] = [
+  ...programmingLanguages,
+  ...machineLearning,
+  ...backend,
+  ...tools,
+  ...programmingConcepts,
+  ...iot,
+  ...dataScience,
+  ...softSkills,
+];
+
+const half = Math.ceil(allSkills.length / 2);
+const firstHalf = allSkills.slice(0, half);
+const secondHalf = allSkills.slice(half);
+
+const row1 = [...firstHalf, ...firstHalf, ...firstHalf];
+const row2 = [...secondHalf, ...secondHalf, ...secondHalf];
 
 export default function MarqueeSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
