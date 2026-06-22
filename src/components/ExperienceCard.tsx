@@ -63,19 +63,14 @@ export default function ExperienceCard({ experience, index, totalCards }: Experi
               {experience.company} — {experience.location}
             </p>
             {experience.logos && experience.logos.length > 0 && (
-              <div className="flex items-center gap-2 mt-2 flex-wrap">
+              <div className="flex items-center gap-4 mt-2 flex-wrap">
                 {experience.logos.map((logo) => (
-                  <span
+                  <img
                     key={logo.src}
-                    className="bg-white rounded-lg px-2 py-1 flex items-center"
-                    style={{ height: "30px" }}
-                  >
-                    <img
-                      src={logo.src}
-                      alt={logo.alt}
-                      className="h-full w-auto object-contain"
-                    />
-                  </span>
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="h-9 sm:h-11 w-auto object-contain"
+                  />
                 ))}
               </div>
             )}
