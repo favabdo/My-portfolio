@@ -75,7 +75,7 @@ export default function SkillRow({ title, accent, skills }: SkillRowProps) {
         {skills.map((skill) => (
           <span
             key={skill}
-            className="flex-shrink-0 rounded-full px-4 py-2 text-xs sm:text-sm whitespace-nowrap"
+            className="flex-shrink-0 rounded-full px-5 py-2.5 text-sm sm:text-base whitespace-nowrap"
             style={{
               border: `1px solid ${accent}40`,
               background: `${accent}14`,

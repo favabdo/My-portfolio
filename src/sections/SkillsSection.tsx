@@ -78,7 +78,7 @@ const categories: SkillCategory[] = [
 
 export default function SkillsSection() {
   return (
-    <section className="bg-[#0C0C0C] px-5 sm:px-8 md:px-10 pt-24 sm:pt-32 md:pt-36 pb-16 sm:pb-20">
+    <section id="skills" className="bg-[#0C0C0C] px-5 sm:px-8 md:px-10 pt-24 sm:pt-32 md:pt-36 pb-16 sm:pb-20">
       <FadeIn delay={0} y={20}>
         <h2
           className="hero-heading font-black uppercase tracking-tight text-center leading-none mb-12 sm:mb-16"
