@@ -40,7 +40,7 @@ export default function CategoryRow({ title, accent, skills }: CategoryRowProps)
   const scrollByCard = (dir: 1 | -1) => {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir * 440, behavior: "smooth" });
+    el.scrollBy({ left: dir * 200, behavior: "smooth" });
   };
 
   return (

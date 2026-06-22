@@ -6,6 +6,7 @@ import EducationSection from "./sections/EducationSection";
 import CertificatesSection from "./sections/CertificatesSection";
 import ServicesSection from "./sections/ServicesSection";
 import ProjectsSection from "./sections/ProjectsSection";
+import FloatingContactButtons from "./components/FloatingContactButtons";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <CertificatesSection />
       <ServicesSection />
       <ProjectsSection />
+      <FloatingContactButtons />
     </div>
   );
 }

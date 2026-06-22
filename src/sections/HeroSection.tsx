@@ -3,7 +3,7 @@ import Magnet from "../components/Magnet";
 import ContactButton from "../components/ContactButton";
 import portraitImg from "../assets/images/portrait.png";
 
-const navLinks = ["About", "Certificates", "Services", "Projects"];
+const navLinks = ["Experience", "About", "Education", "Certificates", "Services", "Projects"];
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {
@@ -14,12 +14,12 @@ export default function HeroSection() {
     <section className="relative h-screen flex flex-col" style={{ overflowX: "clip" }}>
       {/* Navbar */}
       <FadeIn delay={0} y={-20} as="nav" immediate className="relative z-30">
-        <div className="flex justify-between items-center px-6 md:px-10 pt-6 md:pt-8 pb-4 md:pb-5 border-b border-[#D7E2EA]/10">
+        <div className="no-scrollbar flex justify-between items-center gap-4 overflow-x-auto px-6 md:px-10 pt-6 md:pt-8 pb-4 md:pb-5 border-b border-[#D7E2EA]/10">
           {navLinks.map((link) => (
             <button
               key={link}
               onClick={() => scrollTo(link.toLowerCase())}
-              className="relative text-[#D7E2EA] font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] transition-opacity duration-200 hover:opacity-70"
+              className="relative flex-shrink-0 text-[#D7E2EA] font-medium uppercase tracking-wider text-xs sm:text-sm md:text-lg lg:text-[1.3rem] transition-opacity duration-200 hover:opacity-70"
             >
               {link}
             </button>
