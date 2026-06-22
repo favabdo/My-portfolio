@@ -1,5 +1,8 @@
 import FadeIn from "../components/FadeIn";
 import ExperienceCard, { type ExperienceData } from "../components/ExperienceCard";
+import niletechnoLogo from "../assets/logos/niletechno-logo.png";
+import ischoolLogo from "../assets/logos/ischool-logo.png";
+import mcitLogo from "../assets/logos/mcit-logo.jpg";
 
 const experiences: ExperienceData[] = [
   {
@@ -9,6 +12,7 @@ const experiences: ExperienceData[] = [
     location: "Tanta, Egypt",
     period: "Mar 2026 – Present",
     type: "Full-time",
+    logos: [{ src: niletechnoLogo, alt: "Nile Techno" }],
     bullets: [
       "Developed AI-powered automation and analytics solutions for business operations",
       "Designed and optimized backend systems, SQL databases, and reporting pipelines",
@@ -22,6 +26,10 @@ const experiences: ExperienceData[] = [
     location: "Remote",
     period: "Apr 2026 – Present",
     type: "Part-time",
+    logos: [
+      { src: ischoolLogo, alt: "iSchool" },
+      { src: mcitLogo, alt: "Ministry of Communications and Information Technology" },
+    ],
     bullets: [
       "Delivering Data Science concepts to students",
       "Teaching fundamentals of data analysis, Python, and machine learning",

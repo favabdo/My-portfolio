@@ -1,12 +1,14 @@
 import FadeIn from "../components/FadeIn";
 import CertificateCard, { type CertificateData } from "../components/CertificateCard";
 import { GraduationCap } from "lucide-react";
+import educationCertImage from "../assets/certificates/education-cert.jpg";
 
 const education: CertificateData = {
   title: "Bachelor of Electronic Engineering",
   issuer: "El Menoufia University",
   date: "2020 – 2025",
   color: "#5C9DD5",
+  image: educationCertImage,
 };
 
 export default function EducationSection() {

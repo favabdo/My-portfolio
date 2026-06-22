@@ -1,5 +1,9 @@
 import FadeIn from "../components/FadeIn";
 import CertificateCard, { type CertificateData } from "../components/CertificateCard";
+import ntiMlCert from "../assets/certificates/nti-ml-cert.png";
+import maharaTechCert from "../assets/certificates/mahara-tech-cert.png";
+import ciscoAiCert from "../assets/certificates/cisco-ai-cert.png";
+import ischoolCert from "../assets/certificates/ischool-datascience-cert.png";
 
 const certificates: CertificateData[] = [
   {
@@ -7,18 +11,28 @@ const certificates: CertificateData[] = [
     issuer: "NTI Creativa Innovation Hubs",
     date: "Oct 2025 – Jan 2026",
     color: "#9B7BD9",
+    image: ntiMlCert,
   },
   {
     title: "Practical Machine Learning for Data Scientists",
     issuer: "Mahara Tech (ITI)",
     date: "Jul 2025 – Sep 2025",
     color: "#5C9DD5",
+    image: maharaTechCert,
   },
   {
     title: "Introduction to Modern AI",
     issuer: "Cisco Networking Academy",
     date: "2025",
     color: "#D9A23F",
+    image: ciscoAiCert,
+  },
+  {
+    title: "Data Science Level 3 – Semester 1",
+    issuer: "iSchool",
+    date: "Apr 2026",
+    color: "#1F8FEA",
+    image: ischoolCert,
   },
 ];
 

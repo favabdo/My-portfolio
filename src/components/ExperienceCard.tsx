@@ -2,6 +2,11 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Briefcase } from "lucide-react";
 
+export interface ExperienceLogo {
+  src: string;
+  alt: string;
+}
+
 export interface ExperienceData {
   number: string;
   role: string;
@@ -10,6 +15,7 @@ export interface ExperienceData {
   period: string;
   type: "Full-time" | "Part-time" | "Internship";
   bullets: string[];
+  logos?: ExperienceLogo[];
 }
 
 interface ExperienceCardProps {
@@ -56,6 +62,23 @@ export default function ExperienceCard({ experience, index, totalCards }: Experi
             <p className="text-[#D7E2EA]/60 text-sm sm:text-base">
               {experience.company} — {experience.location}
             </p>
+            {experience.logos && experience.logos.length > 0 && (
+              <div className="flex items-center gap-2 mt-2 flex-wrap">
+                {experience.logos.map((logo) => (
+                  <span
+                    key={logo.src}
+                    className="bg-white rounded-lg px-2 py-1 flex items-center"
+                    style={{ height: "30px" }}
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="h-full w-auto object-contain"
+                    />
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
           <Briefcase
             size={28}
