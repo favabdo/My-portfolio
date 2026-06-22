@@ -36,13 +36,13 @@ export default function MarqueeTile({ label, accent, symbol }: MarqueeTileProps)
         {symbol}
       </div>
 
-      {/* label */}
+      {/* label — bigger text */}
       <div
-        className="uppercase tracking-wide font-medium leading-tight"
+        className="uppercase tracking-wide font-semibold leading-tight"
         style={{
           color: "#D7E2EA",
-          fontSize: "0.6rem",
-          opacity: 0.85,
+          fontSize: "0.75rem",
+          opacity: 0.9,
           display: "-webkit-box",
           WebkitLineClamp: 2,
           WebkitBoxOrient: "vertical",

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import MarqueeTile from "./MarqueeTile";
 
@@ -13,33 +13,94 @@ interface CategoryRowProps {
   skills: SkillItem[];
 }
 
+const AUTO_SCROLL_SPEED = 0.6; // px per frame
+const PAUSE_AFTER_INTERACTION = 4000; // ms to pause after user touches
+
 export default function CategoryRow({ title, accent, skills }: CategoryRowProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const pauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const isUserScrollingRef = useRef(false);
 
-  const updateArrows = () => {
+  const updateArrows = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 4);
     setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
-  };
+  }, []);
 
+  // Auto-scroll loop
   useEffect(() => {
-    updateArrows();
     const el = scrollRef.current;
     if (!el) return;
+
+    const animate = () => {
+      if (!isPaused && !isUserScrollingRef.current) {
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        if (el.scrollLeft >= maxScroll - 1) {
+          // reset to start smoothly
+          el.scrollLeft = 0;
+        } else {
+          el.scrollLeft += AUTO_SCROLL_SPEED;
+        }
+        updateArrows();
+      }
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [isPaused, updateArrows]);
+
+  const pauseTemporarily = useCallback(() => {
+    setIsPaused(true);
+    if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    pauseTimerRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, PAUSE_AFTER_INTERACTION);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const onScrollStart = () => {
+      isUserScrollingRef.current = true;
+      pauseTemporarily();
+    };
+    const onScrollEnd = () => {
+      isUserScrollingRef.current = false;
+    };
+
     el.addEventListener("scroll", updateArrows, { passive: true });
+    el.addEventListener("mousedown", onScrollStart);
+    el.addEventListener("touchstart", onScrollStart, { passive: true });
+    el.addEventListener("touchend", onScrollEnd);
+    el.addEventListener("mouseup", onScrollEnd);
     window.addEventListener("resize", updateArrows);
+
+    updateArrows();
+
     return () => {
       el.removeEventListener("scroll", updateArrows);
+      el.removeEventListener("mousedown", onScrollStart);
+      el.removeEventListener("touchstart", onScrollStart);
+      el.removeEventListener("touchend", onScrollEnd);
+      el.removeEventListener("mouseup", onScrollEnd);
       window.removeEventListener("resize", updateArrows);
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
     };
-  }, []);
+  }, [updateArrows, pauseTemporarily]);
 
   const scrollByCard = (dir: 1 | -1) => {
     const el = scrollRef.current;
     if (!el) return;
+    pauseTemporarily();
     el.scrollBy({ left: dir * 200, behavior: "smooth" });
   };
 
@@ -77,6 +138,8 @@ export default function CategoryRow({ title, accent, skills }: CategoryRowProps)
       <div
         ref={scrollRef}
         className="no-scrollbar flex gap-3 overflow-x-auto scroll-smooth"
+        style={{ cursor: "grab" }}
+        onMouseDown={() => pauseTemporarily()}
       >
         {skills.map((skill) => (
           <MarqueeTile key={skill.label} label={skill.label} symbol={skill.symbol} accent={accent} />

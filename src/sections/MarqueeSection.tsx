@@ -103,8 +103,17 @@ const categories: Category[] = [
 
 export default function MarqueeSection() {
   return (
-    <section className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-16 px-5 sm:px-8 md:px-10">
-      <div className="flex flex-col gap-10 sm:gap-12 max-w-[1400px] mx-auto">
+    <section id="skills" className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-16 px-5 sm:px-8 md:px-10">
+      <FadeIn delay={0} y={20}>
+        <h2
+          className="hero-heading font-black uppercase tracking-tight text-center leading-none mb-12 sm:mb-16"
+          style={{ fontSize: "clamp(2.5rem, 9vw, 110px)" }}
+        >
+          Skills
+        </h2>
+      </FadeIn>
+
+      <div className="flex flex-col gap-10 sm:gap-12 max-w-4xl mx-auto">
         {categories.map((cat, i) => (
           <FadeIn key={cat.title} delay={i * 0.08} y={20}>
             <CategoryRow title={cat.title} accent={cat.accent} skills={cat.skills} />

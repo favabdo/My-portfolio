@@ -25,7 +25,7 @@ export default function FloatingContactButtons() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 20 }}
           transition={{ duration: 0.3 }}
-          className="fixed right-4 sm:right-6 md:right-8 top-[65%] -translate-y-1/2 z-40 flex flex-col gap-3"
+          className="fixed right-4 sm:right-6 md:right-8 bottom-6 sm:bottom-8 z-40 flex flex-col gap-3"
         >
           <a
             href={`https://wa.me/${PHONE}`}

@@ -6,7 +6,6 @@ import EducationSection from "./sections/EducationSection";
 import CertificatesSection from "./sections/CertificatesSection";
 import ServicesSection from "./sections/ServicesSection";
 import ProjectsSection from "./sections/ProjectsSection";
-import SkillsSection from "./sections/SkillsSection";
 import FloatingContactButtons from "./components/FloatingContactButtons";
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
     <div className="bg-[#0C0C0C]" style={{ overflowX: "clip" }}>
       <HeroSection />
       <ExperienceSection />
-      <SkillsSection />
       <MarqueeSection />
       <AboutSection />
       <EducationSection />
