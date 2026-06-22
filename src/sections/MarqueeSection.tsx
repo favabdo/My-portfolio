@@ -1,146 +1,115 @@
-import { useEffect, useRef, useState } from "react";
-import MarqueeTile from "../components/MarqueeTile";
+import FadeIn from "../components/FadeIn";
+import CategoryRow from "../components/CategoryRow";
 
-interface TechItem {
+interface SkillItem {
   label: string;
-  accent: string;
   symbol: string;
 }
 
-// Programming Languages — blue
-const programmingLanguages: TechItem[] = [
-  { label: "Python", accent: "#5C9DD5", symbol: "Py" },
-  { label: "SQL", accent: "#5C9DD5", symbol: "SQL" },
-  { label: "C++", accent: "#5C9DD5", symbol: "C++" },
+interface Category {
+  title: string;
+  accent: string;
+  skills: SkillItem[];
+}
+
+const categories: Category[] = [
+  {
+    title: "Programming Languages",
+    accent: "#5C9DD5",
+    skills: [
+      { label: "Python", symbol: "Py" },
+      { label: "SQL", symbol: "SQL" },
+      { label: "C++", symbol: "C++" },
+    ],
+  },
+  {
+    title: "Machine Learning",
+    accent: "#9B7BD9",
+    skills: [
+      { label: "Supervised & Unsupervised Learning", symbol: "ML" },
+      { label: "Pandas & NumPy", symbol: "Pd" },
+      { label: "Matplotlib", symbol: "Mp" },
+      { label: "scikit-learn", symbol: "sk" },
+      { label: "OpenCV", symbol: "CV" },
+      { label: "Computer Vision", symbol: "👁" },
+      { label: "Deep Learning", symbol: "DL" },
+      { label: "NLP", symbol: "NLP" },
+      { label: "RAG Systems", symbol: "RAG" },
+      { label: "AI Agents", symbol: "AI" },
+    ],
+  },
+  {
+    title: "Backend",
+    accent: "#3FA86A",
+    skills: [
+      { label: "FastAPI", symbol: "API" },
+      { label: "Flask", symbol: "Fl" },
+      { label: "Django", symbol: "Dj" },
+    ],
+  },
+  {
+    title: "Tools",
+    accent: "#D9A23F",
+    skills: [
+      { label: "Google Colab", symbol: "Co" },
+      { label: "Firebase", symbol: "Fb" },
+      { label: "Git", symbol: "Git" },
+      { label: "GitHub", symbol: "Gh" },
+      { label: "Docker", symbol: "Dk" },
+      { label: "Render", symbol: "Rn" },
+      { label: "Fly.io", symbol: "Fly" },
+      { label: "SQL Server", symbol: "DB" },
+      { label: "Claude Code", symbol: "Cc" },
+      { label: "ChatGPT", symbol: "GPT" },
+    ],
+  },
+  {
+    title: "Programming Concepts",
+    accent: "#D75AA0",
+    skills: [
+      { label: "OOP", symbol: "OOP" },
+      { label: "Data Structures", symbol: "DS" },
+      { label: "Algorithms", symbol: "Al" },
+      { label: "Backend Development", symbol: "Be" },
+      { label: "Software Development", symbol: "Sw" },
+    ],
+  },
+  {
+    title: "IoT & Embedded Systems",
+    accent: "#4FB3BF",
+    skills: [
+      { label: "ESP32", symbol: "ESP" },
+      { label: "Sensors Integration", symbol: "Sn" },
+    ],
+  },
+  {
+    title: "Data Science",
+    accent: "#D96B5A",
+    skills: [
+      { label: "Data Preprocessing", symbol: "Dp" },
+      { label: "EDA", symbol: "EDA" },
+      { label: "Feature Engineering", symbol: "Fe" },
+    ],
+  },
+  {
+    title: "Soft Skills",
+    accent: "#C9C9C9",
+    skills: [
+      { label: "Problem Solving", symbol: "Ps" },
+      { label: "Analytical Thinking", symbol: "At" },
+    ],
+  },
 ];
-
-// Machine Learning — purple
-const machineLearning: TechItem[] = [
-  { label: "Supervised & Unsupervised Learning", accent: "#9B7BD9", symbol: "ML" },
-  { label: "Pandas & NumPy", accent: "#9B7BD9", symbol: "Pd" },
-  { label: "Matplotlib", accent: "#9B7BD9", symbol: "Mp" },
-  { label: "scikit-learn", accent: "#9B7BD9", symbol: "sk" },
-  { label: "OpenCV", accent: "#9B7BD9", symbol: "CV" },
-  { label: "Computer Vision", accent: "#9B7BD9", symbol: "👁" },
-  { label: "Deep Learning", accent: "#9B7BD9", symbol: "DL" },
-  { label: "NLP", accent: "#9B7BD9", symbol: "NLP" },
-  { label: "RAG Systems", accent: "#9B7BD9", symbol: "RAG" },
-  { label: "AI Agents", accent: "#9B7BD9", symbol: "AI" },
-];
-
-// Backend — green
-const backend: TechItem[] = [
-  { label: "FastAPI", accent: "#3FA86A", symbol: "API" },
-  { label: "Flask", accent: "#3FA86A", symbol: "Fl" },
-  { label: "Django", accent: "#3FA86A", symbol: "Dj" },
-];
-
-// Tools — orange
-const tools: TechItem[] = [
-  { label: "Google Colab", accent: "#D9A23F", symbol: "Co" },
-  { label: "Firebase", accent: "#D9A23F", symbol: "Fb" },
-  { label: "Git", accent: "#D9A23F", symbol: "Git" },
-  { label: "GitHub", accent: "#D9A23F", symbol: "Gh" },
-  { label: "Docker", accent: "#D9A23F", symbol: "Dk" },
-  { label: "Render", accent: "#D9A23F", symbol: "Rn" },
-  { label: "Fly.io", accent: "#D9A23F", symbol: "Fly" },
-  { label: "SQL Server", accent: "#D9A23F", symbol: "DB" },
-  { label: "Claude Code", accent: "#D9A23F", symbol: "Cc" },
-  { label: "ChatGPT", accent: "#D9A23F", symbol: "GPT" },
-];
-
-// Programming Concepts — pink
-const programmingConcepts: TechItem[] = [
-  { label: "OOP", accent: "#D75AA0", symbol: "OOP" },
-  { label: "Data Structures", accent: "#D75AA0", symbol: "DS" },
-  { label: "Algorithms", accent: "#D75AA0", symbol: "Al" },
-  { label: "Backend Development", accent: "#D75AA0", symbol: "Be" },
-  { label: "Software Development", accent: "#D75AA0", symbol: "Sw" },
-];
-
-// IoT & Embedded Systems — teal
-const iot: TechItem[] = [
-  { label: "ESP32", accent: "#4FB3BF", symbol: "ESP" },
-  { label: "Sensors Integration", accent: "#4FB3BF", symbol: "Sn" },
-];
-
-// Data Science — red/orange
-const dataScience: TechItem[] = [
-  { label: "Data Preprocessing", accent: "#D96B5A", symbol: "Dp" },
-  { label: "EDA", accent: "#D96B5A", symbol: "EDA" },
-  { label: "Feature Engineering", accent: "#D96B5A", symbol: "Fe" },
-];
-
-// Soft Skills — grey
-const softSkills: TechItem[] = [
-  { label: "Problem Solving", accent: "#C9C9C9", symbol: "Ps" },
-  { label: "Analytical Thinking", accent: "#C9C9C9", symbol: "At" },
-];
-
-const allSkills: TechItem[] = [
-  ...programmingLanguages,
-  ...machineLearning,
-  ...backend,
-  ...tools,
-  ...programmingConcepts,
-  ...iot,
-  ...dataScience,
-  ...softSkills,
-];
-
-const half = Math.ceil(allSkills.length / 2);
-const firstHalf = allSkills.slice(0, half);
-const secondHalf = allSkills.slice(half);
-
-const row1 = [...firstHalf, ...firstHalf, ...firstHalf];
-const row2 = [...secondHalf, ...secondHalf, ...secondHalf];
 
 export default function MarqueeSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-      const computed = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
-      setOffset(computed);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden"
-    >
-      <div className="flex flex-col gap-3">
-        <div
-          className="flex gap-3"
-          style={{
-            transform: `translateX(${offset - 200}px)`,
-            willChange: "transform",
-          }}
-        >
-          {row1.map((item, i) => (
-            <MarqueeTile key={`r1-${i}`} {...item} />
-          ))}
-        </div>
-        <div
-          className="flex gap-3"
-          style={{
-            transform: `translateX(${-(offset - 200)}px)`,
-            willChange: "transform",
-          }}
-        >
-          {row2.map((item, i) => (
-            <MarqueeTile key={`r2-${i}`} {...item} />
-          ))}
-        </div>
+    <section className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-16 px-5 sm:px-8 md:px-10">
+      <div className="flex flex-col gap-10 sm:gap-12 max-w-[1400px] mx-auto">
+        {categories.map((cat, i) => (
+          <FadeIn key={cat.title} delay={i * 0.08} y={20}>
+            <CategoryRow title={cat.title} accent={cat.accent} skills={cat.skills} />
+          </FadeIn>
+        ))}
       </div>
     </section>
   );
