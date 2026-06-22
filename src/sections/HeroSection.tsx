@@ -13,13 +13,13 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen flex flex-col" style={{ overflowX: "clip" }}>
       {/* Navbar */}
-      <FadeIn delay={0} y={-20} as="nav" immediate>
-        <div className="flex justify-between items-center px-6 md:px-10 pt-6 md:pt-8">
+      <FadeIn delay={0} y={-20} as="nav" immediate className="relative z-30">
+        <div className="flex justify-between items-center px-6 md:px-10 pt-6 md:pt-8 pb-4 md:pb-5 border-b border-[#D7E2EA]/10">
           {navLinks.map((link) => (
             <button
               key={link}
               onClick={() => scrollTo(link.toLowerCase())}
-              className="text-[#D7E2EA] font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] transition-opacity duration-200 hover:opacity-70"
+              className="relative text-[#D7E2EA] font-medium uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] transition-opacity duration-200 hover:opacity-70"
             >
               {link}
             </button>
@@ -28,7 +28,7 @@ export default function HeroSection() {
       </FadeIn>
 
       {/* Hero Heading */}
-      <div className="overflow-hidden mt-6 sm:mt-4 md:-mt-5 w-full px-1">
+      <div className="relative z-0 overflow-hidden mt-8 sm:mt-10 md:mt-8 w-full px-1 pointer-events-none">
         <FadeIn delay={0.15} y={40} immediate>
           <h1
             className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap"
@@ -39,17 +39,14 @@ export default function HeroSection() {
         </FadeIn>
       </div>
 
-      {/* Spacer to keep portrait clear of heading */}
-      <div className="flex-1 min-h-[40px]" />
-
-      {/* Portrait */}
+      {/* Portrait — centered in the viewport */}
       <Magnet
         padding={150}
         strength={3}
         activeTransition="transform 0.3s ease-out"
         inactiveTransition="transform 0.6s ease-in-out"
-        className="absolute left-1/2 -translate-x-1/2 bottom-[140px] sm:bottom-0 z-0 w-[180px] sm:w-[360px] md:w-[440px] lg:w-[520px]"
-        style={{ maxHeight: "55vh" }}
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[220px] sm:w-[360px] md:w-[440px] lg:w-[520px]"
+        style={{ maxHeight: "60vh" }}
       >
         <FadeIn delay={0.6} y={30} immediate>
           <img
@@ -57,7 +54,7 @@ export default function HeroSection() {
             alt="Abdallah Elsawy portrait"
             className="w-full h-auto select-none pointer-events-none"
             draggable={false}
-            style={{ maxHeight: "55vh", objectFit: "contain" }}
+            style={{ maxHeight: "60vh", objectFit: "contain" }}
           />
         </FadeIn>
       </Magnet>
