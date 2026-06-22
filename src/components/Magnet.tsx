@@ -8,6 +8,7 @@ interface MagnetProps {
   activeTransition?: string;
   inactiveTransition?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function Magnet({
@@ -17,6 +18,7 @@ export default function Magnet({
   activeTransition = "transform 0.3s ease-out",
   inactiveTransition = "transform 0.6s ease-in-out",
   className = "",
+  style,
 }: MagnetProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [transform, setTransform] = useState("translate3d(0px, 0px, 0px)");
@@ -60,6 +62,7 @@ export default function Magnet({
       ref={ref}
       className={className}
       style={{
+        ...style,
         transform,
         transition,
         willChange: "transform",

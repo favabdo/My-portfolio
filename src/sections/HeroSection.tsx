@@ -39,13 +39,17 @@ export default function HeroSection() {
         </FadeIn>
       </div>
 
+      {/* Spacer to keep portrait clear of heading */}
+      <div className="flex-1 min-h-[40px]" />
+
       {/* Portrait */}
       <Magnet
         padding={150}
         strength={3}
         activeTransition="transform 0.3s ease-out"
         inactiveTransition="transform 0.6s ease-in-out"
-        className="absolute left-1/2 -translate-x-1/2 top-[42%] -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 z-0 w-[200px] sm:w-[360px] md:w-[440px] lg:w-[520px]"
+        className="absolute left-1/2 -translate-x-1/2 bottom-[140px] sm:bottom-0 z-0 w-[180px] sm:w-[360px] md:w-[440px] lg:w-[520px]"
+        style={{ maxHeight: "55vh" }}
       >
         <FadeIn delay={0.6} y={30} immediate>
           <img
@@ -53,6 +57,7 @@ export default function HeroSection() {
             alt="Abdallah Elsawy portrait"
             className="w-full h-auto select-none pointer-events-none"
             draggable={false}
+            style={{ maxHeight: "55vh", objectFit: "contain" }}
           />
         </FadeIn>
       </Magnet>
