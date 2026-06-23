@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import LiveProjectButton from "./LiveProjectButton";
 import ProjectPlaceholder from "./ProjectPlaceholder";
+import ProjectGallery from "./ProjectGallery";
 
 export interface ProjectData {
   number: string;
@@ -10,6 +11,9 @@ export interface ProjectData {
   type: "Client" | "Personal";
   liveUrl?: string;
   visuals: ["chart" | "table" | "code" | "camera" | "flow", "chart" | "table" | "code" | "camera" | "flow", "chart" | "table" | "code" | "camera" | "flow"];
+  /** Real screenshots. When present: gallery[0] & gallery[15] show in the two image
+   * slots, and the third slot becomes a "Show More Photos" trigger for the full set. */
+  gallery?: string[];
 }
 
 interface ProjectCardProps {
@@ -27,6 +31,12 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
 
   const targetScale = 1 - (totalCards - 1 - index) * 0.03;
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+
+  const hasGallery = !!project.gallery && project.gallery.length > 0;
+  const gallery = project.gallery ?? [];
+  const primaryLeft = gallery[0];
+  const primaryRight = gallery[15] ?? gallery[gallery.length - 1];
+  const coverImage = gallery[7] ?? gallery[0];
 
   return (
     <div
@@ -64,22 +74,49 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
         {/* Bottom row: image grid */}
         <div className="flex gap-3 sm:gap-4">
           <div className="flex flex-col gap-3 sm:gap-4" style={{ width: "40%" }}>
-            <ProjectPlaceholder
-              variant={project.visuals[0]}
-              className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
-              style={{ height: "clamp(130px, 16vw, 230px)" }}
-            />
-            <ProjectPlaceholder
-              variant={project.visuals[1]}
-              className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
-              style={{ height: "clamp(160px, 22vw, 340px)" }}
-            />
+            {hasGallery ? (
+              <img
+                src={primaryLeft}
+                alt={`${project.name} screenshot 1`}
+                className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
+                style={{ height: "clamp(130px, 16vw, 230px)" }}
+              />
+            ) : (
+              <ProjectPlaceholder
+                variant={project.visuals[0]}
+                className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
+                style={{ height: "clamp(130px, 16vw, 230px)" }}
+              />
+            )}
+            {hasGallery ? (
+              <img
+                src={primaryRight}
+                alt={`${project.name} screenshot 16`}
+                className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
+                style={{ height: "clamp(160px, 22vw, 340px)" }}
+              />
+            ) : (
+              <ProjectPlaceholder
+                variant={project.visuals[1]}
+                className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
+                style={{ height: "clamp(160px, 22vw, 340px)" }}
+              />
+            )}
           </div>
           <div style={{ width: "60%" }}>
-            <ProjectPlaceholder
-              variant={project.visuals[2]}
-              className="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
-            />
+            {hasGallery ? (
+              <ProjectGallery
+                id={project.number}
+                images={gallery}
+                cover={coverImage}
+                triggerClassName="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
+              />
+            ) : (
+              <ProjectPlaceholder
+                variant={project.visuals[2]}
+                className="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
+              />
+            )}
           </div>
         </div>
       </motion.div>
