@@ -55,9 +55,10 @@ export default function ExperienceSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const measure = () => {
-      if (!headingRef.current || !sectionRef.current || !cardsRef.current) return;
+      if (!headingRef.current || !cardsRef.current || !sectionRef.current) return;
       const h = headingRef.current.getBoundingClientRect().height;
       cardsRef.current.style.paddingTop = `${h}px`;
       sectionRef.current.style.setProperty("--exp-heading-h", `${h}px`);
@@ -72,24 +73,33 @@ export default function ExperienceSection() {
       ref={sectionRef}
       id="experience"
       className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
-      /*
-        overflow: clip is the key fix:
-        - Unlike overflow: hidden, it does NOT create a new scroll container.
-        - BUT it clips any sticky child that tries to escape the section boundary.
-        - So the heading becomes sticky ONLY within this section's height,
-          and cannot bleed over into the next section's cards.
-      */
-      style={{ overflow: "clip" }}
     >
-      <div className="relative max-w-5xl mx-auto">
+      {/*
+        TWO-LAYER STRUCTURE:
+        Layer 1 (z-30): The heading — sticky, sits on TOP of everything in this section.
+                        Lives outside the cards container so the cards' own z-index
+                        stacking never competes with it.
+        Layer 2 (z-10): The cards container — cards stack on each other but always
+                        stay below the heading layer.
+
+        The heading's sticky scope is the <section> height, so it
+        naturally stops when the section ends and never bleeds into
+        the next section.
+      */}
+
+      {/* HEADING LAYER — sticky, always above cards */}
+      <div className="sticky top-0 z-30 bg-[#0C0C0C]" style={{ marginLeft: "auto", marginRight: "auto", maxWidth: "64rem" }}>
         <h2
           ref={headingRef}
-          className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C]"
+          className="hero-heading font-black uppercase tracking-tight text-center leading-none py-3"
           style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
         >
           Experience
         </h2>
+      </div>
 
+      {/* CARDS LAYER — below the heading */}
+      <div className="relative max-w-5xl mx-auto" style={{ zIndex: 10 }}>
         <div ref={cardsRef}>
           {experiences.map((exp, i) => (
             <ExperienceCard

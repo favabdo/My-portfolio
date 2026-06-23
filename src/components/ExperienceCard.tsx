@@ -34,21 +34,18 @@ export default function ExperienceCard({ experience, index, totalCards }: Experi
   const targetScale = 1 - (totalCards - 1 - index) * 0.03;
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
 
-  // sticky top = heading height (CSS var) + stacking offset per card
-  // The heading height is set on the parent <section> by ExperienceSection.
   const stickyTop = `calc(var(--exp-heading-h, 7rem) + ${index * 1.75}rem)`;
 
   return (
     <div
       ref={cardRef}
       className="sticky h-[85vh] flex items-center"
-      style={{ top: stickyTop }}
+      style={{ top: stickyTop, zIndex: 10 + index }}
     >
       <motion.div
         style={{ scale }}
         className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-6 sm:p-8 md:p-10"
       >
-        {/* Top row */}
         <div className="flex items-start gap-4 sm:gap-6 mb-6 sm:mb-8">
           <span
             className="font-black text-[#D7E2EA] leading-none flex-shrink-0"
@@ -69,32 +66,16 @@ export default function ExperienceCard({ experience, index, totalCards }: Experi
             {experience.logos && experience.logos.length > 0 && (
               <div className="flex items-center gap-4 mt-2 flex-wrap">
                 {experience.logos.map((logo) => (
-                  <img
-                    key={logo.src}
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="h-9 sm:h-11 w-auto object-contain"
-                  />
+                  <img key={logo.src} src={logo.src} alt={logo.alt} className="h-9 sm:h-11 w-auto object-contain" />
                 ))}
               </div>
             )}
           </div>
-          <Briefcase
-            size={28}
-            className="hidden sm:block flex-shrink-0 mt-2"
-            color="#D7E2EA"
-            strokeWidth={1.5}
-            opacity={0.5}
-          />
+          <Briefcase size={28} className="hidden sm:block flex-shrink-0 mt-2" color="#D7E2EA" strokeWidth={1.5} opacity={0.5} />
         </div>
-
-        {/* Bullets */}
         <ul className="flex flex-col gap-3 sm:gap-4">
           {experience.bullets.map((bullet, i) => (
-            <li
-              key={i}
-              className="flex items-start gap-3 text-[#D7E2EA]/80 text-sm sm:text-base md:text-lg leading-relaxed"
-            >
+            <li key={i} className="flex items-start gap-3 text-[#D7E2EA]/80 text-sm sm:text-base md:text-lg leading-relaxed">
               <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#D7E2EA]/50 flex-shrink-0" />
               <span>{bullet}</span>
             </li>

@@ -36,34 +36,25 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
   const primaryRight = gallery[15] ?? gallery[gallery.length - 1];
   const coverImage = gallery[7] ?? gallery[0];
 
-  // sticky top = heading height (CSS var) + stacking offset per card
   const stickyTop = `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)`;
 
   return (
     <div
       ref={cardRef}
       className="sticky h-[85vh] flex items-center"
-      style={{ top: stickyTop }}
+      style={{ top: stickyTop, zIndex: 10 + index }}
     >
       <motion.div
         style={{ scale }}
         className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8"
       >
-        {/* Top row */}
         <div className="flex items-center gap-4 sm:gap-6 mb-4 sm:mb-6">
-          <span
-            className="font-black text-[#D7E2EA] leading-none flex-shrink-0"
-            style={{ fontSize: "clamp(2.5rem, 8vw, 100px)" }}
-          >
+          <span className="font-black text-[#D7E2EA] leading-none flex-shrink-0" style={{ fontSize: "clamp(2.5rem, 8vw, 100px)" }}>
             {project.number}
           </span>
           <div className="flex flex-col gap-1 flex-1 min-w-0">
-            <span className="text-[#D7E2EA]/50 uppercase tracking-widest text-xs sm:text-sm">
-              {project.type}
-            </span>
-            <h3 className="text-[#D7E2EA] font-medium uppercase text-lg sm:text-2xl md:text-3xl truncate">
-              {project.name}
-            </h3>
+            <span className="text-[#D7E2EA]/50 uppercase tracking-widest text-xs sm:text-sm">{project.type}</span>
+            <h3 className="text-[#D7E2EA] font-medium uppercase text-lg sm:text-2xl md:text-3xl truncate">{project.name}</h3>
           </div>
           <LiveProjectButton href={project.liveUrl ?? "#"} className="flex-shrink-0 hidden sm:inline-block" />
         </div>
@@ -72,51 +63,24 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
           <LiveProjectButton href={project.liveUrl ?? "#"} />
         </div>
 
-        {/* Bottom row: image grid */}
         <div className="flex gap-3 sm:gap-4">
           <div className="flex flex-col gap-3 sm:gap-4" style={{ width: "40%" }}>
             {hasGallery ? (
-              <img
-                src={primaryLeft}
-                alt={`${project.name} screenshot 1`}
-                className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
-                style={{ height: "clamp(130px, 16vw, 230px)" }}
-              />
+              <img src={primaryLeft} alt={`${project.name} screenshot 1`} className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" style={{ height: "clamp(130px, 16vw, 230px)" }} />
             ) : (
-              <ProjectPlaceholder
-                variant={project.visuals[0]}
-                className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
-                style={{ height: "clamp(130px, 16vw, 230px)" }}
-              />
+              <ProjectPlaceholder variant={project.visuals[0]} className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" style={{ height: "clamp(130px, 16vw, 230px)" }} />
             )}
             {hasGallery ? (
-              <img
-                src={primaryRight}
-                alt={`${project.name} screenshot 16`}
-                className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
-                style={{ height: "clamp(160px, 22vw, 340px)" }}
-              />
+              <img src={primaryRight} alt={`${project.name} screenshot 16`} className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" style={{ height: "clamp(160px, 22vw, 340px)" }} />
             ) : (
-              <ProjectPlaceholder
-                variant={project.visuals[1]}
-                className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
-                style={{ height: "clamp(160px, 22vw, 340px)" }}
-              />
+              <ProjectPlaceholder variant={project.visuals[1]} className="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" style={{ height: "clamp(160px, 22vw, 340px)" }} />
             )}
           </div>
           <div style={{ width: "60%" }}>
             {hasGallery ? (
-              <ProjectGallery
-                id={project.number}
-                images={gallery}
-                cover={coverImage}
-                triggerClassName="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
-              />
+              <ProjectGallery id={project.number} images={gallery} cover={coverImage} triggerClassName="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" />
             ) : (
-              <ProjectPlaceholder
-                variant={project.visuals[2]}
-                className="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
-              />
+              <ProjectPlaceholder variant={project.visuals[2]} className="w-full h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" />
             )}
           </div>
         </div>

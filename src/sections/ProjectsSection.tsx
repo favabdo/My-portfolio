@@ -120,21 +120,23 @@ export default function ProjectsSection() {
       ref={sectionRef}
       id="projects"
       className="relative bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
-      /*
-        overflow: clip keeps the sticky heading from escaping this section
-        into the next section's cards. Does NOT create a scroll container.
-      */
-      style={{ overflow: "clip" }}
     >
-      <div className="relative max-w-5xl mx-auto">
+      {/* HEADING LAYER — sticky, always above cards */}
+      <div
+        className="sticky top-0 z-30 bg-[#0C0C0C]"
+        style={{ marginLeft: "auto", marginRight: "auto", maxWidth: "64rem" }}
+      >
         <h2
           ref={headingRef}
-          className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C]"
+          className="hero-heading font-black uppercase tracking-tight text-center leading-none py-3"
           style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
         >
           Projects
         </h2>
+      </div>
 
+      {/* CARDS LAYER — below the heading */}
+      <div className="relative max-w-5xl mx-auto" style={{ zIndex: 10 }}>
         <div ref={cardsRef}>
           {projects.map((project, i) => (
             <ProjectCard key={project.number} project={project} index={i} totalCards={total} />
