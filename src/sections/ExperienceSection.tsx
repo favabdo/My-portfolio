@@ -1,4 +1,5 @@
 import FadeIn from "../components/FadeIn";
+import StickyLabel from "../components/StickyLabel";
 import ExperienceCard, { type ExperienceData } from "../components/ExperienceCard";
 import niletechnoLogo from "../assets/logos/niletechno-logo.png";
 import ischoolLogo from "../assets/logos/ischool-logo.png";
@@ -67,6 +68,7 @@ export default function ExperienceSection() {
       </FadeIn>
 
       <div className="relative max-w-5xl mx-auto">
+        <StickyLabel label="Experience" />
         {experiences.map((exp, i) => (
           <ExperienceCard key={exp.number} experience={exp} index={i} totalCards={experiences.length} />
         ))}

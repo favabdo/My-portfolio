@@ -18,9 +18,9 @@ export default function ContactButton({ className = "" }: ContactButtonProps) {
         className="flex items-center justify-center rounded-full p-3 sm:p-3.5 md:p-4 text-white outline outline-2 -outline-offset-[3px] outline-white transition-transform duration-200 hover:scale-[1.06] active:scale-[0.97]"
         style={{
           background:
-            "linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)",
+            "linear-gradient(135deg, #0C0C0C 10%, #0E3B23 40%, #128C4A 72%, #25D366 100%)",
           boxShadow:
-            "0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset",
+            "0px 4px 4px rgba(37, 211, 102, 0.25), 4px 4px 12px rgba(18, 140, 74, 0.6) inset",
         }}
       >
         <WhatsAppIcon size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />

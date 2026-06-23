@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import FadeIn from "../components/FadeIn";
+import StickyLabel from "../components/StickyLabel";
 import ProjectCard, { type ProjectData } from "../components/ProjectCard";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -8,13 +9,20 @@ const projectImageModules = import.meta.glob(
   { eager: true, import: "default" },
 ) as Record<string, string>;
 
-const nileTechnoGallery = Object.entries(projectImageModules)
-  .sort(([a], [b]) => {
-    const numA = parseInt(a.match(/(\d+)\.\w+$/)?.[1] ?? "0", 10);
-    const numB = parseInt(b.match(/(\d+)\.\w+$/)?.[1] ?? "0", 10);
-    return numA - numB;
-  })
-  .map(([, src]) => src);
+const sortedProjectImages = Object.entries(projectImageModules)
+  .map(([path, src]) => ({
+    num: parseInt(path.match(/(\d+)\.\w+$/)?.[1] ?? "0", 10),
+    src,
+  }))
+  .sort((a, b) => a.num - b.num);
+
+const nileTechnoGallery = sortedProjectImages
+  .filter((img) => img.num >= 1 && img.num <= 23)
+  .map((img) => img.src);
+
+const smartIntercomGallery = sortedProjectImages
+  .filter((img) => img.num >= 24 && img.num <= 35)
+  .map((img) => img.src);
 
 const projects: ProjectData[] = [
   {
@@ -31,7 +39,9 @@ const projects: ProjectData[] = [
     category: "AIoT",
     name: "Smart Intercom System",
     type: "Personal",
+    // No live link yet — to be added later
     visuals: ["camera", "code", "flow"],
+    gallery: smartIntercomGallery,
   },
 ];
 
@@ -110,6 +120,7 @@ export default function ProjectsSection() {
       </FadeIn>
 
       <div className="relative max-w-5xl mx-auto">
+        <StickyLabel label="Projects" />
         {projects.map((project, i) => (
           <ProjectCard key={project.number} project={project} index={i} totalCards={total} />
         ))}

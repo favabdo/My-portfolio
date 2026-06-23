@@ -3,7 +3,7 @@ import Magnet from "../components/Magnet";
 import ContactButton from "../components/ContactButton";
 import portraitImg from "../assets/images/portrait.png";
 
-const navLinks = ["Experience", "Projects", "Education", "Skills", "About", "Services"];
+const navLinks = ["About", "Experience", "Projects", "Education", "Skills", "Services"];
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {
@@ -63,8 +63,8 @@ export default function HeroSection() {
       <div className="relative z-20 flex justify-between items-end pb-7 sm:pb-8 md:pb-10 px-6 md:px-10 mt-auto">
         <FadeIn delay={0.35} y={20} immediate>
           <p
-            className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug max-w-[150px] sm:max-w-[220px] md:max-w-[260px]"
-            style={{ fontSize: "clamp(0.7rem, 1.4vw, 1.5rem)" }}
+            className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug max-w-[190px] sm:max-w-[250px] md:max-w-[290px]"
+            style={{ fontSize: "clamp(0.95rem, 3.8vw, 1.45rem)" }}
           >
             an ai &amp; ml engineer driven by building intelligent systems that solve real problems
           </p>

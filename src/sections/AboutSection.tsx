@@ -1,6 +1,5 @@
 import FadeIn from "../components/FadeIn";
 import AnimatedText from "../components/AnimatedText";
-import ContactButton from "../components/ContactButton";
 import DecorIcon from "../components/DecorIcon";
 
 export default function AboutSection() {
@@ -67,9 +66,6 @@ export default function AboutSection() {
             className="text-[#D7E2EA] font-medium text-center leading-relaxed max-w-[560px]"
             style={{ fontSize: "clamp(1rem, 2vw, 1.35rem)" }}
           />
-          <FadeIn delay={0.1}>
-            <ContactButton />
-          </FadeIn>
         </div>
       </div>
     </section>
