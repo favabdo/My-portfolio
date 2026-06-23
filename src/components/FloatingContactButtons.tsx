@@ -6,52 +6,15 @@ const PHONE = "201061163091";
 const EMAIL = "abdallah666mo@gmail.com";
 
 export default function FloatingContactButtons() {
-  const [phase, setPhase] = useState<"hero" | "transitioning" | "fixed">("hero");
-
-  // Position state for the flying animation
-  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-  const [endPos] = useState(() => {
-    if (typeof window === "undefined") return { x: 0, y: 0 };
-    return {
-      x: window.innerWidth - 24 - 48,   // right-6 = 24px, button ~48px wide
-      y: window.innerHeight - 32 - 48,  // bottom-8 = 32px, button ~48px tall
-    };
-  });
-
+  const [visible, setVisible] = useState(false);
   const heroRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     heroRef.current = document.getElementById("hero-contact");
 
-    const getHeroPos = () => {
-      const el = heroRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      setStartPos({ x: rect.left, y: rect.top });
-    };
-
-    getHeroPos();
-    window.addEventListener("resize", getHeroPos);
-    return () => window.removeEventListener("resize", getHeroPos);
-  }, []);
-
-  useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY;
-      const vh = window.innerHeight;
-
-      if (scrolled < vh * 0.55) {
-        setPhase("hero");
-      } else if (scrolled < vh * 1.0) {
-        setPhase("transitioning");
-        // Keep updating hero pos while it's scrolling out of view
-        if (heroRef.current) {
-          const rect = heroRef.current.getBoundingClientRect();
-          setStartPos({ x: rect.left, y: rect.top });
-        }
-      } else {
-        setPhase("fixed");
-      }
+      // Show as soon as user starts scrolling (after 50px)
+      setVisible(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -59,29 +22,17 @@ export default function FloatingContactButtons() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const currentX = phase === "fixed" ? endPos.x : startPos.x;
-  const currentY = phase === "fixed" ? endPos.y : startPos.y;
-
-  if (phase === "hero") return null;
-
   return (
     <motion.div
-      style={{ position: "fixed", top: 0, left: 0, zIndex: 40 }}
-      animate={{
-        x: currentX,
-        y: currentY,
-        opacity: 1,
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={visible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+      transition={{ type: "spring", stiffness: 200, damping: 22 }}
+      style={{
+        position: "fixed",
+        right: "1.5rem",
+        bottom: "2rem",
+        zIndex: 40,
       }}
-      initial={{
-        x: startPos.x,
-        y: startPos.y,
-        opacity: phase === "transitioning" ? 0 : 1,
-      }}
-      transition={
-        phase === "fixed"
-          ? { type: "spring", stiffness: 100, damping: 20 }
-          : { duration: 0 }
-      }
       className="flex flex-col gap-3"
     >
       <a

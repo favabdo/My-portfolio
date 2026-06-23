@@ -41,8 +41,8 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
   return (
     <div
       ref={cardRef}
-      className="sticky top-24 md:top-32 h-[85vh] flex items-center"
-      style={{ top: `${6 + index * 1.75}rem` }}
+      className="sticky h-[85vh] flex items-center"
+      style={{ top: `${8 + index * 1.75}rem` }}
     >
       <motion.div
         style={{ scale }}

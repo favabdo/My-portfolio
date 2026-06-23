@@ -61,7 +61,7 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
     <div
       ref={cardRef}
       className="sticky h-[85vh] flex items-center"
-      style={{ top: `${6 + index * 1.75}rem` }}
+      style={{ top: `${8 + index * 1.75}rem` }}
     >
       <motion.div
         style={{ scale, minHeight: "340px" }}
@@ -108,10 +108,10 @@ export default function ProjectsSection() {
       id="projects"
       className="relative bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
     >
-      {/* Sticky big heading — outside FadeIn so sticky works */}
+      {/* Sticky big heading */}
       <h2
-        className="hero-heading font-black uppercase tracking-tight text-center leading-none mb-16 sm:mb-20 sticky top-0 z-20 pt-6 pb-4 bg-[#0C0C0C]"
-        style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+        className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C] mb-0"
+        style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
       >
         Projects
       </h2>
