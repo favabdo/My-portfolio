@@ -3,15 +3,15 @@ import FadeIn from "../components/FadeIn";
 import ProjectCard, { type ProjectData } from "../components/ProjectCard";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-const projectImageModules = import.meta.glob("../assets/projects/*.png", {
-  eager: true,
-  import: "default",
-}) as Record<string, string>;
+const projectImageModules = import.meta.glob(
+  "../assets/projects/*.{png,jpg,jpeg,webp,PNG,JPG,JPEG,WEBP}",
+  { eager: true, import: "default" },
+) as Record<string, string>;
 
 const nileTechnoGallery = Object.entries(projectImageModules)
   .sort(([a], [b]) => {
-    const numA = parseInt(a.match(/(\d+)\.png$/)?.[1] ?? "0", 10);
-    const numB = parseInt(b.match(/(\d+)\.png$/)?.[1] ?? "0", 10);
+    const numA = parseInt(a.match(/(\d+)\.\w+$/)?.[1] ?? "0", 10);
+    const numB = parseInt(b.match(/(\d+)\.\w+$/)?.[1] ?? "0", 10);
     return numA - numB;
   })
   .map(([, src]) => src);

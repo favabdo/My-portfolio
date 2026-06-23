@@ -101,14 +101,21 @@ export default function CategoryRow({ title, accent, skills }: CategoryRowProps)
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center justify-between px-1">
+      <div className="flex items-start justify-between px-1 gap-2">
         <h3
-          className="uppercase tracking-widest font-bold text-base sm:text-lg"
-          style={{ color: accent }}
+          className="uppercase tracking-widest font-bold text-base sm:text-lg leading-tight"
+          style={{
+            color: accent,
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            minHeight: "2.5em",
+          }}
         >
           {title}
         </h3>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-shrink-0">
           <button
             onClick={() => scrollByCard(-1)}
             disabled={!canScrollLeft}
