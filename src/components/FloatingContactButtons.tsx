@@ -59,10 +59,6 @@ export default function FloatingContactButtons() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Progress: 0 = at hero, 1 = at fixed destination
-  const progress =
-    phase === "hero" ? 0 : phase === "fixed" ? 1 : undefined;
-
   const currentX = phase === "fixed" ? endPos.x : startPos.x;
   const currentY = phase === "fixed" ? endPos.y : startPos.y;
 

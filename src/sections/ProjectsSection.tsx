@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import FadeIn from "../components/FadeIn";
 import ProjectCard, { type ProjectData } from "../components/ProjectCard";
 import { motion, useScroll, useTransform } from "framer-motion";
 

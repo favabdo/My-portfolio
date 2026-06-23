@@ -1,4 +1,3 @@
-import FadeIn from "../components/FadeIn";
 import ExperienceCard, { type ExperienceData } from "../components/ExperienceCard";
 import niletechnoLogo from "../assets/logos/niletechno-logo.png";
 import ischoolLogo from "../assets/logos/ischool-logo.png";
