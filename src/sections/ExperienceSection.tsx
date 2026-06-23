@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import ExperienceCard, { type ExperienceData } from "../components/ExperienceCard";
 import niletechnoLogo from "../assets/logos/niletechno-logo.png";
 import ischoolLogo from "../assets/logos/ischool-logo.png";
@@ -55,22 +55,19 @@ export default function ExperienceSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const [headingH, setHeadingH] = useState(0);
 
   useEffect(() => {
-    const update = () => {
-      if (!headingRef.current || !cardsRef.current) return;
+    const measure = () => {
+      if (!headingRef.current || !sectionRef.current || !cardsRef.current) return;
       const h = headingRef.current.getBoundingClientRect().height;
-      // Push cards down by heading height so the first card
-      // starts exactly below the heading, not behind it.
+      setHeadingH(h);
       cardsRef.current.style.paddingTop = `${h}px`;
-      // Also store it for ExperienceCard sticky top calculation
-      if (sectionRef.current) {
-        sectionRef.current.style.setProperty("--exp-heading-h", `${h}px`);
-      }
+      sectionRef.current.style.setProperty("--exp-heading-h", `${h}px`);
     };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
   return (
@@ -78,14 +75,16 @@ export default function ExperienceSection() {
       ref={sectionRef}
       id="experience"
       className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
+      /*
+        overflow: clip is the key fix:
+        - Unlike overflow: hidden, it does NOT create a new scroll container.
+        - BUT it clips any sticky child that tries to escape the section boundary.
+        - So the heading becomes sticky ONLY within this section's height,
+          and cannot bleed over into the next section's cards.
+      */
+      style={{ overflow: "clip" }}
     >
       <div className="relative max-w-5xl mx-auto">
-        {/*
-          Sticky heading — sits at top:0 of the viewport.
-          It's positioned absolutely in normal flow at the top of this container,
-          then goes sticky. Cards are pushed down by paddingTop = heading height
-          so the first card starts exactly at the heading's bottom edge.
-        */}
         <h2
           ref={headingRef}
           className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C]"
@@ -94,7 +93,6 @@ export default function ExperienceSection() {
           Experience
         </h2>
 
-        {/* Cards container — paddingTop set dynamically to heading height */}
         <div ref={cardsRef}>
           {experiences.map((exp, i) => (
             <ExperienceCard

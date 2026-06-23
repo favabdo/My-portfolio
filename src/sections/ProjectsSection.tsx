@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import ProjectCard, { type ProjectData } from "../components/ProjectCard";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -104,17 +104,15 @@ export default function ProjectsSection() {
   const total = projects.length + 1;
 
   useEffect(() => {
-    const update = () => {
-      if (!headingRef.current || !cardsRef.current) return;
+    const measure = () => {
+      if (!headingRef.current || !cardsRef.current || !sectionRef.current) return;
       const h = headingRef.current.getBoundingClientRect().height;
       cardsRef.current.style.paddingTop = `${h}px`;
-      if (sectionRef.current) {
-        sectionRef.current.style.setProperty("--proj-heading-h", `${h}px`);
-      }
+      sectionRef.current.style.setProperty("--proj-heading-h", `${h}px`);
     };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
   return (
@@ -122,6 +120,11 @@ export default function ProjectsSection() {
       ref={sectionRef}
       id="projects"
       className="relative bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
+      /*
+        overflow: clip keeps the sticky heading from escaping this section
+        into the next section's cards. Does NOT create a scroll container.
+      */
+      style={{ overflow: "clip" }}
     >
       <div className="relative max-w-5xl mx-auto">
         <h2
@@ -132,7 +135,6 @@ export default function ProjectsSection() {
           Projects
         </h2>
 
-        {/* Cards container — paddingTop set dynamically to heading height */}
         <div ref={cardsRef}>
           {projects.map((project, i) => (
             <ProjectCard key={project.number} project={project} index={i} totalCards={total} />
