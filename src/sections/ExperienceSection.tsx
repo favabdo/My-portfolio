@@ -56,15 +56,21 @@ export default function ExperienceSection() {
       id="experience"
       className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
     >
-      {/* Sticky big heading */}
-      <h2
-        className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C] mb-0"
-        style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
-      >
-        Experience
-      </h2>
-
+      {/*
+        The heading and cards share ONE container so that sticky on the
+        heading stops as soon as the container ends (when the last card
+        scrolls away). If the heading lives outside this div it stays
+        glued even after all cards are gone.
+      */}
       <div className="relative max-w-5xl mx-auto">
+        {/* Sticky heading — sticks inside this container only */}
+        <h2
+          className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C] mb-0"
+          style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
+        >
+          Experience
+        </h2>
+
         {experiences.map((exp, i) => (
           <ExperienceCard key={exp.number} experience={exp} index={i} totalCards={experiences.length} />
         ))}

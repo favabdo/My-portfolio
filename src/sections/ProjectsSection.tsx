@@ -108,15 +108,19 @@ export default function ProjectsSection() {
       id="projects"
       className="relative bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
     >
-      {/* Sticky big heading */}
-      <h2
-        className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C] mb-0"
-        style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
-      >
-        Projects
-      </h2>
-
+      {/*
+        Heading inside the cards container so sticky stops
+        when the last card scrolls away.
+      */}
       <div className="relative max-w-5xl mx-auto">
+        {/* Sticky heading — sticks inside this container only */}
+        <h2
+          className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C] mb-0"
+          style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
+        >
+          Projects
+        </h2>
+
         {projects.map((project, i) => (
           <ProjectCard key={project.number} project={project} index={i} totalCards={total} />
         ))}
