@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import ProjectCard, { type ProjectData } from "../components/ProjectCard";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -57,11 +57,13 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
     if (el) el.click();
   };
 
+  const stackOffset = `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)`;
+
   return (
     <div
       ref={cardRef}
       className="sticky h-[85vh] flex items-center"
-      style={{ top: `${8 + index * 1.75}rem` }}
+      style={{ top: stackOffset }}
     >
       <motion.div
         style={{ scale, minHeight: "340px" }}
@@ -101,20 +103,36 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
 }
 
 export default function ProjectsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const total = projects.length + 1; // +1 for next project card
+
+  // Measure heading height and expose as CSS variable for cards
+  useEffect(() => {
+    const update = () => {
+      if (headingRef.current && sectionRef.current) {
+        const h = headingRef.current.getBoundingClientRect().height;
+        sectionRef.current.style.setProperty("--proj-heading-h", `${h}px`);
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="projects"
       className="relative bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
     >
-      {/*
-        Heading inside the cards container so sticky stops
-        when the last card scrolls away.
-      */}
       <div className="relative max-w-5xl mx-auto">
-        {/* Sticky heading — sticks inside this container only */}
+        {/*
+          Sticky heading — sticks to viewport top.
+          Cards use --proj-heading-h CSS var to start exactly below this.
+        */}
         <h2
+          ref={headingRef}
           className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C] mb-0"
           style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
         >

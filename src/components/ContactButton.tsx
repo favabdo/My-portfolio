@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { WhatsAppIcon, GmailIcon } from "./BrandIcons";
 
 const PHONE = "201061163091";
@@ -10,7 +11,8 @@ interface ContactButtonProps {
 export default function ContactButton({ className = "" }: ContactButtonProps) {
   return (
     <div className={`flex gap-3 ${className}`}>
-      <a
+      <motion.a
+        layoutId="contact-whatsapp"
         href={`https://wa.me/${PHONE}`}
         target="_blank"
         rel="noopener noreferrer"
@@ -24,9 +26,10 @@ export default function ContactButton({ className = "" }: ContactButtonProps) {
         }}
       >
         <WhatsAppIcon size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />
-      </a>
+      </motion.a>
 
-      <a
+      <motion.a
+        layoutId="contact-email"
         href={`mailto:${EMAIL}`}
         aria-label="Send an email"
         className="flex items-center justify-center rounded-full p-3 sm:p-3.5 md:p-4 outline outline-2 -outline-offset-[3px] outline-white transition-transform duration-200 hover:scale-[1.06] active:scale-[0.97]"
@@ -35,7 +38,7 @@ export default function ContactButton({ className = "" }: ContactButtonProps) {
         }}
       >
         <GmailIcon size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />
-      </a>
+      </motion.a>
     </div>
   );
 }

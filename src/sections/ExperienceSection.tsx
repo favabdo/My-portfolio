@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import ExperienceCard, { type ExperienceData } from "../components/ExperienceCard";
 import niletechnoLogo from "../assets/logos/niletechno-logo.png";
 import ischoolLogo from "../assets/logos/ischool-logo.png";
@@ -51,20 +52,37 @@ const experiences: ExperienceData[] = [
 ];
 
 export default function ExperienceSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  // Measure the sticky heading height and expose it as a CSS variable
+  // so ExperienceCard can use it for its own sticky top offset.
+  useEffect(() => {
+    const update = () => {
+      if (headingRef.current && sectionRef.current) {
+        const h = headingRef.current.getBoundingClientRect().height;
+        sectionRef.current.style.setProperty("--exp-heading-h", `${h}px`);
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="experience"
       className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
     >
-      {/*
-        The heading and cards share ONE container so that sticky on the
-        heading stops as soon as the container ends (when the last card
-        scrolls away). If the heading lives outside this div it stays
-        glued even after all cards are gone.
-      */}
       <div className="relative max-w-5xl mx-auto">
-        {/* Sticky heading — sticks inside this container only */}
+        {/*
+          Sticky heading — sticks to top of viewport.
+          Cards read --exp-heading-h from this section element
+          so their own sticky top starts right below this heading.
+        */}
         <h2
+          ref={headingRef}
           className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C] mb-0"
           style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
         >

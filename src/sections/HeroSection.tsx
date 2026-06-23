@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import FadeIn from "../components/FadeIn";
 import Magnet from "../components/Magnet";
 import ContactButton from "../components/ContactButton";
@@ -5,7 +6,20 @@ import portraitImg from "../assets/images/portrait.png";
 
 const navLinks = ["About", "Experience", "Projects", "Education", "Certificates", "Skills", "Services"];
 
+const AT_TOP_THRESHOLD = 80;
+
 export default function HeroSection() {
+  const [scrolledPast, setScrolledPast] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolledPast(window.scrollY > AT_TOP_THRESHOLD);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -70,7 +84,19 @@ export default function HeroSection() {
           </p>
         </FadeIn>
         <FadeIn delay={0.5} y={20} immediate>
-          <div id="hero-contact">
+          {/*
+            Hide the hero contact buttons once the user scrolls past the threshold.
+            The floating version (with shared layoutId) takes over seamlessly,
+            creating the illusion that the buttons flew from here to the corner.
+          */}
+          <div
+            id="hero-contact"
+            style={{
+              visibility: scrolledPast ? "hidden" : "visible",
+              // Keep the space reserved so layout doesn't shift
+              pointerEvents: scrolledPast ? "none" : "auto",
+            }}
+          >
             <ContactButton />
           </div>
         </FadeIn>

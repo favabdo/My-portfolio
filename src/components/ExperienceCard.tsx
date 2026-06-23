@@ -24,6 +24,12 @@ interface ExperienceCardProps {
   totalCards: number;
 }
 
+// The heading takes ~py-3 + font size. We give it a fixed offset so
+// cards stack directly below the heading rather than behind it.
+// heading height ≈ clamp(2rem,8vw,100px) + 2×0.75rem padding ≈ ~96px on desktop
+// We use a CSS var so it's easy to tweak in one place.
+const HEADING_OFFSET = "var(--exp-heading-h, 7rem)";
+
 export default function ExperienceCard({ experience, index, totalCards }: ExperienceCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -34,11 +40,14 @@ export default function ExperienceCard({ experience, index, totalCards }: Experi
   const targetScale = 1 - (totalCards - 1 - index) * 0.03;
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
 
+  // Each successive card stacks 1.75rem lower so you can see the card beneath
+  const stackOffset = `calc(${HEADING_OFFSET} + ${index * 1.75}rem)`;
+
   return (
     <div
       ref={cardRef}
       className="sticky h-[85vh] flex items-center"
-      style={{ top: `${8 + index * 1.75}rem` }}
+      style={{ top: stackOffset }}
     >
       <motion.div
         style={{ scale }}
