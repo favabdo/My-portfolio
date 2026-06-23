@@ -74,32 +74,21 @@ export default function ExperienceSection() {
       id="experience"
       className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
     >
-      {/*
-        TWO-LAYER STRUCTURE:
-        Layer 1 (z-30): The heading — sticky, sits on TOP of everything in this section.
-                        Lives outside the cards container so the cards' own z-index
-                        stacking never competes with it.
-        Layer 2 (z-10): The cards container — cards stack on each other but always
-                        stay below the heading layer.
-
-        The heading's sticky scope is the <section> height, so it
-        naturally stops when the section ends and never bleeds into
-        the next section.
-      */}
-
-      {/* HEADING LAYER — sticky, always above cards */}
-      <div className="sticky top-0 z-30 bg-[#0C0C0C]" style={{ marginLeft: "auto", marginRight: "auto", maxWidth: "64rem" }}>
+      <div className="relative max-w-5xl mx-auto">
+        {/*
+          Heading: sticky top-0, z-30 so it always paints above the cards.
+          Cards: in the same container, paddingTop = heading height (set by JS),
+          so the first card starts exactly below the heading.
+          The sticky scope is the <section>, so the heading stops when section ends.
+        */}
         <h2
           ref={headingRef}
-          className="hero-heading font-black uppercase tracking-tight text-center leading-none py-3"
+          className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-30 py-3 bg-[#0C0C0C]"
           style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
         >
           Experience
         </h2>
-      </div>
 
-      {/* CARDS LAYER — below the heading */}
-      <div className="relative max-w-5xl mx-auto" style={{ zIndex: 10 }}>
         <div ref={cardsRef}>
           {experiences.map((exp, i) => (
             <ExperienceCard
