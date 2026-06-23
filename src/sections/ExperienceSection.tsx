@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import ExperienceCard, { type ExperienceData } from "../components/ExperienceCard";
 import niletechnoLogo from "../assets/logos/niletechno-logo.png";
 import ischoolLogo from "../assets/logos/ischool-logo.png";
@@ -55,13 +55,10 @@ export default function ExperienceSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const [headingH, setHeadingH] = useState(0);
-
   useEffect(() => {
     const measure = () => {
       if (!headingRef.current || !sectionRef.current || !cardsRef.current) return;
       const h = headingRef.current.getBoundingClientRect().height;
-      setHeadingH(h);
       cardsRef.current.style.paddingTop = `${h}px`;
       sectionRef.current.style.setProperty("--exp-heading-h", `${h}px`);
     };
