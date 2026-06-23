@@ -54,13 +54,17 @@ const experiences: ExperienceData[] = [
 export default function ExperienceSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
 
-  // Measure the sticky heading height and expose it as a CSS variable
-  // so ExperienceCard can use it for its own sticky top offset.
   useEffect(() => {
     const update = () => {
-      if (headingRef.current && sectionRef.current) {
-        const h = headingRef.current.getBoundingClientRect().height;
+      if (!headingRef.current || !cardsRef.current) return;
+      const h = headingRef.current.getBoundingClientRect().height;
+      // Push cards down by heading height so the first card
+      // starts exactly below the heading, not behind it.
+      cardsRef.current.style.paddingTop = `${h}px`;
+      // Also store it for ExperienceCard sticky top calculation
+      if (sectionRef.current) {
         sectionRef.current.style.setProperty("--exp-heading-h", `${h}px`);
       }
     };
@@ -77,21 +81,30 @@ export default function ExperienceSection() {
     >
       <div className="relative max-w-5xl mx-auto">
         {/*
-          Sticky heading — sticks to top of viewport.
-          Cards read --exp-heading-h from this section element
-          so their own sticky top starts right below this heading.
+          Sticky heading — sits at top:0 of the viewport.
+          It's positioned absolutely in normal flow at the top of this container,
+          then goes sticky. Cards are pushed down by paddingTop = heading height
+          so the first card starts exactly at the heading's bottom edge.
         */}
         <h2
           ref={headingRef}
-          className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C] mb-0"
+          className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C]"
           style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
         >
           Experience
         </h2>
 
-        {experiences.map((exp, i) => (
-          <ExperienceCard key={exp.number} experience={exp} index={i} totalCards={experiences.length} />
-        ))}
+        {/* Cards container — paddingTop set dynamically to heading height */}
+        <div ref={cardsRef}>
+          {experiences.map((exp, i) => (
+            <ExperienceCard
+              key={exp.number}
+              experience={exp}
+              index={i}
+              totalCards={experiences.length}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

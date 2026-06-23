@@ -37,7 +37,6 @@ const projects: ProjectData[] = [
     category: "AIoT",
     name: "Smart Intercom System",
     type: "Personal",
-    // No live link yet — to be added later
     visuals: ["camera", "code", "flow"],
     gallery: smartIntercomGallery,
   },
@@ -57,13 +56,11 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
     if (el) el.click();
   };
 
-  const stackOffset = `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)`;
-
   return (
     <div
       ref={cardRef}
       className="sticky h-[85vh] flex items-center"
-      style={{ top: stackOffset }}
+      style={{ top: `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)` }}
     >
       <motion.div
         style={{ scale, minHeight: "340px" }}
@@ -75,7 +72,6 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
         >
           {String(index + 1).padStart(2, "0")}
         </span>
-
         <div className="flex flex-col items-center gap-3 text-center">
           <p
             className="text-[#D7E2EA]/50 uppercase tracking-[0.3em] font-medium"
@@ -90,7 +86,6 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
             Should Be Yours
           </h3>
         </div>
-
         <button
           onClick={scrollToContact}
           className="mt-2 px-8 py-3 rounded-full border border-[#D7E2EA]/40 text-[#D7E2EA] uppercase tracking-widest text-sm font-semibold transition-all duration-300 hover:bg-[#D7E2EA] hover:text-[#0C0C0C] hover:border-transparent"
@@ -105,13 +100,15 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const total = projects.length + 1; // +1 for next project card
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const total = projects.length + 1;
 
-  // Measure heading height and expose as CSS variable for cards
   useEffect(() => {
     const update = () => {
-      if (headingRef.current && sectionRef.current) {
-        const h = headingRef.current.getBoundingClientRect().height;
+      if (!headingRef.current || !cardsRef.current) return;
+      const h = headingRef.current.getBoundingClientRect().height;
+      cardsRef.current.style.paddingTop = `${h}px`;
+      if (sectionRef.current) {
         sectionRef.current.style.setProperty("--proj-heading-h", `${h}px`);
       }
     };
@@ -127,22 +124,21 @@ export default function ProjectsSection() {
       className="relative bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
     >
       <div className="relative max-w-5xl mx-auto">
-        {/*
-          Sticky heading — sticks to viewport top.
-          Cards use --proj-heading-h CSS var to start exactly below this.
-        */}
         <h2
           ref={headingRef}
-          className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C] mb-0"
+          className="hero-heading font-black uppercase tracking-tight text-center leading-none sticky top-0 z-20 py-3 bg-[#0C0C0C]"
           style={{ fontSize: "clamp(2rem, 8vw, 100px)" }}
         >
           Projects
         </h2>
 
-        {projects.map((project, i) => (
-          <ProjectCard key={project.number} project={project} index={i} totalCards={total} />
-        ))}
-        <NextProjectCard index={projects.length} totalCards={total} />
+        {/* Cards container — paddingTop set dynamically to heading height */}
+        <div ref={cardsRef}>
+          {projects.map((project, i) => (
+            <ProjectCard key={project.number} project={project} index={i} totalCards={total} />
+          ))}
+          <NextProjectCard index={projects.length} totalCards={total} />
+        </div>
       </div>
     </section>
   );

@@ -11,8 +11,6 @@ export interface ProjectData {
   type: "Client" | "Personal";
   liveUrl?: string;
   visuals: ["chart" | "table" | "code" | "camera" | "flow", "chart" | "table" | "code" | "camera" | "flow", "chart" | "table" | "code" | "camera" | "flow"];
-  /** Real screenshots. When present: gallery[0] & gallery[15] show in the two image
-   * slots, and the third slot becomes a "Show More Photos" trigger for the full set. */
   gallery?: string[];
 }
 
@@ -21,9 +19,6 @@ interface ProjectCardProps {
   index: number;
   totalCards: number;
 }
-
-// heading height ≈ clamp(2rem,8vw,100px) + 2×0.75rem padding ≈ ~7rem on desktop
-const HEADING_OFFSET = "var(--proj-heading-h, 7rem)";
 
 export default function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -41,13 +36,14 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
   const primaryRight = gallery[15] ?? gallery[gallery.length - 1];
   const coverImage = gallery[7] ?? gallery[0];
 
-  const stackOffset = `calc(${HEADING_OFFSET} + ${index * 1.75}rem)`;
+  // sticky top = heading height (CSS var) + stacking offset per card
+  const stickyTop = `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)`;
 
   return (
     <div
       ref={cardRef}
       className="sticky h-[85vh] flex items-center"
-      style={{ top: stackOffset }}
+      style={{ top: stickyTop }}
     >
       <motion.div
         style={{ scale }}

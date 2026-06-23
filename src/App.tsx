@@ -1,4 +1,3 @@
-import { LayoutGroup } from "framer-motion";
 import HeroSection from "./sections/HeroSection";
 import AboutSection from "./sections/AboutSection";
 import ExperienceSection from "./sections/ExperienceSection";
@@ -11,23 +10,17 @@ import FloatingContactButtons from "./components/FloatingContactButtons";
 
 function App() {
   return (
-    // LayoutGroup enables the shared layout animation between
-    // ContactButton (in HeroSection) and FloatingContactButtons.
-    // When the hero buttons hide and floating buttons appear (same layoutId),
-    // Framer Motion animates them smoothly between the two positions.
-    <LayoutGroup>
-      <div className="bg-[#0C0C0C]" style={{ overflowX: "clip" }}>
-        <HeroSection />
-        <AboutSection />
-        <ExperienceSection />
-        <ProjectsSection />
-        <EducationSection />
-        <CertificatesSection />
-        <MarqueeSection />
-        <ServicesSection />
-        <FloatingContactButtons />
-      </div>
-    </LayoutGroup>
+    <div className="bg-[#0C0C0C]" style={{ overflowX: "clip" }}>
+      <HeroSection />
+      <AboutSection />
+      <ExperienceSection />
+      <ProjectsSection />
+      <EducationSection />
+      <CertificatesSection />
+      <MarqueeSection />
+      <ServicesSection />
+      <FloatingContactButtons />
+    </div>
   );
 }
 
