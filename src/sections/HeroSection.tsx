@@ -3,7 +3,7 @@ import Magnet from "../components/Magnet";
 import ContactButton from "../components/ContactButton";
 import portraitImg from "../assets/images/portrait.png";
 
-const navLinks = ["About", "Experience", "Projects", "Education", "Skills", "Services"];
+const navLinks = ["About", "Experience", "Projects", "Education", "Certificates", "Skills", "Services"];
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {
@@ -70,7 +70,9 @@ export default function HeroSection() {
           </p>
         </FadeIn>
         <FadeIn delay={0.5} y={20} immediate>
-          <ContactButton />
+          <div id="hero-contact">
+            <ContactButton />
+          </div>
         </FadeIn>
       </div>
     </section>

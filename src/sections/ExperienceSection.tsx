@@ -1,5 +1,4 @@
 import FadeIn from "../components/FadeIn";
-import StickyLabel from "../components/StickyLabel";
 import ExperienceCard, { type ExperienceData } from "../components/ExperienceCard";
 import niletechnoLogo from "../assets/logos/niletechno-logo.png";
 import ischoolLogo from "../assets/logos/ischool-logo.png";
@@ -58,17 +57,15 @@ export default function ExperienceSection() {
       id="experience"
       className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
     >
-      <FadeIn delay={0} y={30}>
-        <h2
-          className="hero-heading font-black uppercase tracking-tight text-center leading-none mb-16 sm:mb-20"
-          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
-        >
-          Experience
-        </h2>
-      </FadeIn>
+      {/* Sticky big heading — outside FadeIn so sticky works */}
+      <h2
+        className="hero-heading font-black uppercase tracking-tight text-center leading-none mb-16 sm:mb-20 sticky top-0 z-20 pt-6 pb-4 bg-[#0C0C0C]"
+        style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+      >
+        Experience
+      </h2>
 
       <div className="relative max-w-5xl mx-auto">
-        <StickyLabel label="Experience" />
         {experiences.map((exp, i) => (
           <ExperienceCard key={exp.number} experience={exp} index={i} totalCards={experiences.length} />
         ))}

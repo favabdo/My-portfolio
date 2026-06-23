@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import FadeIn from "../components/FadeIn";
-import StickyLabel from "../components/StickyLabel";
 import ProjectCard, { type ProjectData } from "../components/ProjectCard";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -110,17 +109,15 @@ export default function ProjectsSection() {
       id="projects"
       className="relative bg-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-40"
     >
-      <FadeIn delay={0} y={30}>
-        <h2
-          className="hero-heading font-black uppercase tracking-tight text-center leading-none mb-16 sm:mb-20"
-          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
-        >
-          Projects
-        </h2>
-      </FadeIn>
+      {/* Sticky big heading — outside FadeIn so sticky works */}
+      <h2
+        className="hero-heading font-black uppercase tracking-tight text-center leading-none mb-16 sm:mb-20 sticky top-0 z-20 pt-6 pb-4 bg-[#0C0C0C]"
+        style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+      >
+        Projects
+      </h2>
 
       <div className="relative max-w-5xl mx-auto">
-        <StickyLabel label="Projects" />
         {projects.map((project, i) => (
           <ProjectCard key={project.number} project={project} index={i} totalCards={total} />
         ))}
