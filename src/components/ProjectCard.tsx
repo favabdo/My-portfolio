@@ -59,7 +59,7 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
           <LiveProjectButton href={project.liveUrl ?? "#"} className="flex-shrink-0" />
         </div>
 
-: description + gallery — column on mobile, row on sm+ */}
+{/* description + gallery — column on mobile, row on sm+ */}
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           {/* Description */}
           <div className="sm:w-[40%]">
