@@ -31,7 +31,7 @@ const projects: ProjectData[] = [
     liveUrl: "https://niletechnoreports.fly.dev/users/login/",
     visuals: ["chart", "table", "flow"],
     gallery: nileTechnoGallery,
-    description: "Add your project description here.",
+    description: "Designed and developed a complete customer support analytics platform consisting of a FastAPI backend service and a Django web dashboard. The backend automatically analyzes resolved customer conversations using AI and stores structured insights, while the Django dashboard visualizes the collected data through reports, performance metrics, customer analytics, and management tools, enabling data-driven decision-making for support teams.",
   },
   {
     number: "02",
@@ -61,7 +61,7 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
   return (
     <div
       ref={cardRef}
-      className="sticky h-[65vh] flex items-center"
+      className="sticky h-[85vh] flex items-center"
       style={{ top: `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)`, zIndex: 10 + index }}
     >
       <motion.div

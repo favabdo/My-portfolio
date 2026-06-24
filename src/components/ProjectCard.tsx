@@ -40,7 +40,7 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
   return (
     <div
       ref={cardRef}
-      className="sticky h-[65vh] flex items-center"
+      className="sticky h-[85vh] flex items-center"
       style={{ top: stickyTop, zIndex: 10 + index }}
     >
       <motion.div
