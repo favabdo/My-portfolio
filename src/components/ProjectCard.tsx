@@ -54,7 +54,7 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
           </span>
           <div className="flex flex-col gap-0.5 flex-1 min-w-0">
             <span className="text-[#D7E2EA]/50 uppercase tracking-widest text-xs">{project.type} · {project.category}</span>
-            <h3 className="text-[#D7E2EA] font-medium uppercase text-base sm:text-xl md:text-2xl truncate">{project.name}</h3>
+            <h3 className="text-[#D7E2EA] font-medium uppercase text-base sm:text-xl md:text-2xl">{project.name}</h3>
           </div>
           <LiveProjectButton href={project.liveUrl ?? "#"} className="flex-shrink-0" />
         </div>
@@ -64,7 +64,7 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
           {/* Description */}
           <div className="sm:w-[40%]">
             {project.description ? (
-              <p className="text-[#D7E2EA]/70 text-xs sm:text-sm md:text-base leading-relaxed line-clamp-6 sm:line-clamp-none">
+              <p className="text-[#D7E2EA]/70 text-xs sm:text-sm md:text-base leading-relaxed overflow-y-auto max-h-[18vh] sm:max-h-none pr-1" style={{ scrollbarWidth: "none" }}>
                 {project.description}
               </p>
             ) : (
