@@ -2,6 +2,7 @@ import FadeIn from "../components/FadeIn";
 import Magnet from "../components/Magnet";
 import ContactButton from "../components/ContactButton";
 import portraitImg from "../assets/images/portrait.png";
+import portraitRealImg from "../assets/images/portrait-real.png";
 
 const navLinks = ["About", "Experience", "Projects", "Education", "Certificates", "Skills", "Services"];
 
@@ -39,23 +40,34 @@ export default function HeroSection() {
         </FadeIn>
       </div>
 
-      {/* Portrait */}
+      {/* Portrait — real photo by default, hover → 3D model */}
       <Magnet
         padding={150}
         strength={3}
         activeTransition="transform 0.3s ease-out"
         inactiveTransition="transform 0.6s ease-in-out"
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[220px] sm:w-[360px] md:w-[440px] lg:w-[520px]"
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[220px] sm:w-[360px] md:w-[440px] lg:w-[520px] group"
         style={{ maxHeight: "60vh" }}
       >
         <FadeIn delay={0.6} y={30} immediate>
-          <img
-            src={portraitImg}
-            alt="Abdallah Elsawy portrait"
-            className="w-full h-auto select-none pointer-events-none"
-            draggable={false}
-            style={{ maxHeight: "60vh", objectFit: "contain" }}
-          />
+          <div className="relative w-full" style={{ maxHeight: "60vh" }}>
+            {/* Real photo — visible by default */}
+            <img
+              src={portraitRealImg}
+              alt="Abdallah Elsawy portrait"
+              className="w-full h-auto select-none pointer-events-none transition-opacity duration-500 group-hover:opacity-0"
+              draggable={false}
+              style={{ maxHeight: "60vh", objectFit: "contain" }}
+            />
+            {/* 3D model — appears on hover */}
+            <img
+              src={portraitImg}
+              alt="Abdallah Elsawy 3D"
+              className="absolute inset-0 w-full h-auto select-none pointer-events-none transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+              draggable={false}
+              style={{ maxHeight: "60vh", objectFit: "contain" }}
+            />
+          </div>
         </FadeIn>
       </Magnet>
 
