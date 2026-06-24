@@ -1,6 +1,7 @@
 import FadeIn from "../components/FadeIn";
 import AnimatedText from "../components/AnimatedText";
 import DecorIcon from "../components/DecorIcon";
+import portraitImg from "../assets/images/portrait.png";
 
 export default function AboutSection() {
   return (
@@ -66,6 +67,22 @@ export default function AboutSection() {
             className="text-[#D7E2EA] font-medium text-center leading-relaxed max-w-[560px]"
             style={{ fontSize: "clamp(1rem, 2vw, 1.35rem)" }}
           />
+
+          {/* 3D Portrait */}
+          <FadeIn delay={0.3} y={30}>
+            <img
+              src={portraitImg}
+              alt="Abdallah Elsawy 3D"
+              draggable={false}
+              style={{
+                width: "clamp(180px, 28vw, 400px)",
+                objectFit: "contain",
+                objectPosition: "top center",
+                pointerEvents: "none",
+                userSelect: "none",
+              }}
+            />
+          </FadeIn>
         </div>
       </div>
     </section>

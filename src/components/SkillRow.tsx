@@ -6,14 +6,14 @@ interface SkillRowProps {
 
 export default function SkillRow({ title, accent, skills }: SkillRowProps) {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 w-full">
       <h3
         className="uppercase tracking-widest font-semibold text-sm sm:text-base px-1"
         style={{ color: accent }}
       >
         {title}
       </h3>
-      <div className="flex flex-wrap gap-2.5">
+      <div className="flex flex-wrap gap-2.5 w-full">
         {skills.map((skill) => (
           <span
             key={skill}

@@ -5,6 +5,7 @@ import ProjectsSection from "./sections/ProjectsSection";
 import EducationSection from "./sections/EducationSection";
 import CertificatesSection from "./sections/CertificatesSection";
 import MarqueeSection from "./sections/MarqueeSection";
+import SkillsSection from "./sections/SkillsSection";
 import ServicesSection from "./sections/ServicesSection";
 import FloatingContactButtons from "./components/FloatingContactButtons";
 
@@ -18,6 +19,7 @@ function App() {
       <EducationSection />
       <CertificatesSection />
       <MarqueeSection />
+      <SkillsSection />
       <ServicesSection />
       <FloatingContactButtons />
     </div>

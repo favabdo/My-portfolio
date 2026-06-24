@@ -1,58 +1,14 @@
-import { useRef, useEffect } from "react";
 import FadeIn from "../components/FadeIn";
 import Magnet from "../components/Magnet";
 import ContactButton from "../components/ContactButton";
-import portraitImg from "../assets/images/portrait.png";
 import portraitRealImg from "../assets/images/portrait-real.png";
 
 const navLinks = ["About", "Experience", "Projects", "Education", "Certificates", "Skills", "Services"];
 
 export default function HeroSection() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
-
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const overlay = overlayRef.current;
-    if (!wrapper || !overlay) return;
-
-    const R = 90;
-
-    const onMove = (e: MouseEvent) => {
-      const rect = wrapper.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      overlay.style.clipPath = `circle(${R}px at ${x}px ${y}px)`;
-      overlay.style.webkitClipPath = `circle(${R}px at ${x}px ${y}px)` as string;
-    };
-
-    const onEnter = () => {
-      overlay.style.transition = "clip-path 0.05s linear";
-    };
-
-    const onLeave = (e: MouseEvent) => {
-      const rect = wrapper.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      overlay.style.transition = "clip-path 0.4s ease-in-out";
-      overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
-      overlay.style.webkitClipPath = `circle(0px at ${x}px ${y}px)` as string;
-    };
-
-    wrapper.addEventListener("mousemove", onMove, { passive: true });
-    wrapper.addEventListener("mouseenter", onEnter, { passive: true });
-    wrapper.addEventListener("mouseleave", onLeave, { passive: true });
-
-    return () => {
-      wrapper.removeEventListener("mousemove", onMove);
-      wrapper.removeEventListener("mouseenter", onEnter);
-      wrapper.removeEventListener("mouseleave", onLeave);
-    };
-  }, []);
 
   return (
     <section className="relative h-screen flex flex-col" style={{ overflowX: "clip" }}>
@@ -95,16 +51,14 @@ export default function HeroSection() {
           left: "55%",
           top: "50%",
           transform: "translate(-50%, -48%)",
-          width: "clamp(200px, 30vw, 460px)",
+          width: "clamp(180px, 24vw, 380px)",
         }}
       >
         <FadeIn delay={0.6} y={30} immediate>
           <div
-            ref={wrapperRef}
             className="relative w-full select-none"
-            style={{ aspectRatio: "1194 / 1317", cursor: "crosshair" }}
+            style={{ aspectRatio: "1194 / 1317" }}
           >
-            {/* Real photo */}
             <img
               src={portraitRealImg}
               alt="Abdallah Elsawy portrait"
@@ -112,28 +66,6 @@ export default function HeroSection() {
               draggable={false}
               style={{ objectFit: "contain", objectPosition: "top center" }}
             />
-
-            {/* 3D overlay — controlled directly via DOM, zero re-renders */}
-            <div
-              ref={overlayRef}
-              className="absolute inset-0 pointer-events-none"
-              style={{ clipPath: "circle(0px at 50% 27%)" }}
-            >
-              <img
-                src={portraitImg}
-                alt="Abdallah Elsawy 3D"
-                draggable={false}
-                style={{
-                  position: "absolute",
-                  width: "50%",
-                  left: "25%",
-                  top: "3.9%",
-                  objectFit: "contain",
-                  objectPosition: "top center",
-                  pointerEvents: "none",
-                }}
-              />
-            </div>
           </div>
         </FadeIn>
       </Magnet>

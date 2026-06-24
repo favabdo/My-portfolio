@@ -88,7 +88,7 @@ export default function SkillsSection() {
         </h2>
       </FadeIn>
 
-      <div className="max-w-4xl mx-auto flex flex-col gap-8 sm:gap-10">
+      <div className="max-w-4xl mx-auto flex flex-col gap-8 sm:gap-10 w-full">
         {categories.map((cat, i) => (
           <FadeIn key={cat.title} delay={i * 0.08} y={16}>
             <SkillRow title={cat.title} accent={cat.accent} skills={cat.skills} />
