@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import FadeIn from "../components/FadeIn";
 import Magnet from "../components/Magnet";
 import ContactButton from "../components/ContactButton";
@@ -9,34 +9,50 @@ const navLinks = ["About", "Experience", "Projects", "Education", "Certificates"
 
 export default function HeroSection() {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [cursor, setCursor] = useState({ x: 0, y: 0 });
-  const [hovering, setHovering] = useState(false);
-  const rafRef = useRef<number | null>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => {
-      const el = wrapperRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      setCursor({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-    });
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const overlay = overlayRef.current;
+    if (!wrapper || !overlay) return;
+
+    const R = 90;
+
+    const onMove = (e: MouseEvent) => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      overlay.style.clipPath = `circle(${R}px at ${x}px ${y}px)`;
+      overlay.style.webkitClipPath = `circle(${R}px at ${x}px ${y}px)` as string;
+    };
+
+    const onEnter = () => {
+      overlay.style.transition = "clip-path 0.05s linear";
+    };
+
+    const onLeave = (e: MouseEvent) => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      overlay.style.transition = "clip-path 0.4s ease-in-out";
+      overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+      overlay.style.webkitClipPath = `circle(0px at ${x}px ${y}px)` as string;
+    };
+
+    wrapper.addEventListener("mousemove", onMove, { passive: true });
+    wrapper.addEventListener("mouseenter", onEnter, { passive: true });
+    wrapper.addEventListener("mouseleave", onLeave, { passive: true });
+
+    return () => {
+      wrapper.removeEventListener("mousemove", onMove);
+      wrapper.removeEventListener("mouseenter", onEnter);
+      wrapper.removeEventListener("mouseleave", onLeave);
+    };
   }, []);
-
-  useEffect(() => () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); }, []);
-
-  // Spotlight radius — feels like a "window" onto the 3D face
-  const R = 85;
-  const clipPath = hovering
-    ? `circle(${R}px at ${cursor.x}px ${cursor.y}px)`
-    : `circle(0px at ${cursor.x}px ${cursor.y}px)`;
 
   return (
     <section className="relative h-screen flex flex-col" style={{ overflowX: "clip" }}>
@@ -68,7 +84,7 @@ export default function HeroSection() {
         </FadeIn>
       </div>
 
-      {/* Portrait — centered, pushed right slightly, bottom-anchored above contact */}
+      {/* Portrait */}
       <Magnet
         padding={120}
         strength={3}
@@ -76,7 +92,6 @@ export default function HeroSection() {
         inactiveTransition="transform 0.6s ease-in-out"
         className="absolute z-10"
         style={{
-          // Position: horizontally centered-right, vertically fills gap between heading and bottom bar
           left: "55%",
           top: "50%",
           transform: "translate(-50%, -48%)",
@@ -84,22 +99,12 @@ export default function HeroSection() {
         }}
       >
         <FadeIn delay={0.6} y={30} immediate>
-          {/*
-            Wrapper: sized to real portrait's aspect ratio.
-            Mouse events here → clip-path on 3D overlay.
-          */}
           <div
             ref={wrapperRef}
             className="relative w-full select-none"
-            style={{
-              aspectRatio: "1194 / 1317",  // real portrait ratio
-              cursor: "crosshair",
-            }}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
+            style={{ aspectRatio: "1194 / 1317", cursor: "crosshair" }}
           >
-            {/* ── Layer 1: Real portrait, fills wrapper ── */}
+            {/* Real photo */}
             <img
               src={portraitRealImg}
               alt="Abdallah Elsawy portrait"
@@ -108,29 +113,11 @@ export default function HeroSection() {
               style={{ objectFit: "contain", objectPosition: "top center" }}
             />
 
-            {/*
-              ── Layer 2: 3D avatar ──
-              Sized and positioned so the FACE aligns with the real face.
-
-              Math (verified):
-              - Real image: 1194×1317, face center ≈ 27% from top, 50% horizontal
-              - 3D image:   443×600,  face center ≈ 40% from top, 50% horizontal
-              - 3D displayed width  = 52.4% of wrapper width
-              - 3D displayed height = 3D_w / (443/600) = 3D_w * 1.354
-              - Horizontal offset   = (100% - 52.4%) / 2 = 23.8% from left
-              - Vertical offset     ≈ 1–2% from top (almost perfectly aligned)
-
-              clip-path reveals only the spotlight circle under the cursor.
-            */}
+            {/* 3D overlay — controlled directly via DOM, zero re-renders */}
             <div
+              ref={overlayRef}
               className="absolute inset-0 pointer-events-none"
-              style={{
-                clipPath,
-                WebkitClipPath: clipPath,
-                transition: hovering
-                  ? "clip-path 0.05s linear"
-                  : "clip-path 0.4s ease-in-out",
-              }}
+              style={{ clipPath: "circle(0px at 50% 27%)" }}
             >
               <img
                 src={portraitImg}
@@ -138,9 +125,9 @@ export default function HeroSection() {
                 draggable={false}
                 style={{
                   position: "absolute",
-                  width: "52.5%",            // face-size matched
-                  left: "23.75%",            // horizontally centered
-                  top: "1%",                 // slight downward nudge to align faces
+                  width: "50%",
+                  left: "25%",
+                  top: "3.9%",
                   objectFit: "contain",
                   objectPosition: "top center",
                   pointerEvents: "none",
