@@ -101,19 +101,6 @@ const categories: Category[] = [
   },
 ];
 
-// Pair small categories side by side to fill space
-// Groups: solo or [A, B] pairs
-type RowGroup = Category | [Category, Category];
-
-const layout: RowGroup[] = [
-  [categories[0], categories[2]],   // Programming Languages + Backend (both small)
-  categories[1],                     // Machine Learning (big — solo)
-  categories[3],                     // Tools (big — solo)
-  categories[4],                     // Programming Concepts (medium — solo)
-  [categories[5], categories[6]],   // Data Science + IoT (both small)
-  categories[7],                     // Soft Skills
-];
-
 export default function MarqueeSection() {
   return (
     <section id="skills" className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-16 px-5 sm:px-8 md:px-10">
@@ -127,28 +114,11 @@ export default function MarqueeSection() {
       </FadeIn>
 
       <div className="flex flex-col gap-10 sm:gap-12 max-w-4xl mx-auto">
-        {layout.map((group, i) => {
-          if (Array.isArray(group)) {
-            const [a, b] = group;
-            return (
-              <FadeIn key={a.title + b.title} delay={i * 0.08} y={20}>
-                <div className="grid grid-cols-2 gap-6 sm:gap-8">
-                  <div className="min-w-0">
-                    <CategoryRow title={a.title} accent={a.accent} skills={a.skills} />
-                  </div>
-                  <div className="min-w-0">
-                    <CategoryRow title={b.title} accent={b.accent} skills={b.skills} />
-                  </div>
-                </div>
-              </FadeIn>
-            );
-          }
-          return (
-            <FadeIn key={group.title} delay={i * 0.08} y={20}>
-              <CategoryRow title={group.title} accent={group.accent} skills={group.skills} />
-            </FadeIn>
-          );
-        })}
+        {categories.map((cat, i) => (
+          <FadeIn key={cat.title} delay={i * 0.08} y={20}>
+            <CategoryRow title={cat.title} accent={cat.accent} skills={cat.skills} />
+          </FadeIn>
+        ))}
       </div>
     </section>
   );
