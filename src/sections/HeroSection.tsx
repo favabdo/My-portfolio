@@ -45,7 +45,7 @@ export default function HeroSection() {
           <img
             src={portraitRealImg}
             alt="Abdallah Elsawy portrait"
-            className="w-full h-full select-none pointer-events-none"
+            className="portrait-img w-full h-full select-none pointer-events-none"
             draggable={false}
             style={{
               objectFit: "cover",
