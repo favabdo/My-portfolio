@@ -51,20 +51,7 @@ a {
   color: #0C0C0C;
 }
 
-/* Portrait: mobile = cover full area, desktop = smaller centered-left */
-@media (min-width: 768px) {
-  .portrait-img {
-    position: absolute !important;
-    top: 0 !important;
-    right: 10% !important;
-    width: 40% !important;
-    height: 200% !important;
-    object-fit: cover !important;
-    object-position: center top !important;
-    margin: 0 !important;
-  }
-}
-
+/* Portrait: mobile only override */
 @media (max-width: 767px) {
   .portrait-img {
     width: 100% !important;

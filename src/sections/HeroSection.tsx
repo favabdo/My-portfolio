@@ -39,13 +39,13 @@ export default function HeroSection() {
         </FadeIn>
       </div>
 
-      {/* Portrait — fills all space between heading and bottom text */}
-      <div className="relative z-10 flex-1 w-full overflow-hidden">
-        <FadeIn delay={0.6} y={30} immediate className="absolute inset-0 md:flex md:justify-center">
+      {/* Portrait — absolute on section, desktop only */}
+      <div className="hidden md:block absolute z-10 pointer-events-none select-none" style={{ top: 0, right: '8%', width: '38%', height: '100%' }}>
+        <FadeIn delay={0.6} y={30} immediate className="w-full h-full">
           <img
             src={portraitRealImg}
             alt="Abdallah Elsawy portrait"
-            className="portrait-img select-none pointer-events-none"
+            className="portrait-img w-full h-full select-none pointer-events-none"
             draggable={false}
             style={{
               objectFit: "cover",
@@ -54,6 +54,25 @@ export default function HeroSection() {
           />
         </FadeIn>
       </div>
+
+      {/* Portrait mobile — inside flow */}
+      <div className="md:hidden relative z-10 flex-1 w-full overflow-hidden">
+        <FadeIn delay={0.6} y={30} immediate className="absolute inset-0">
+          <img
+            src={portraitRealImg}
+            alt="Abdallah Elsawy portrait"
+            className="w-full h-full select-none pointer-events-none"
+            draggable={false}
+            style={{
+              objectFit: "cover",
+              objectPosition: "center top",
+            }}
+          />
+        </FadeIn>
+      </div>
+
+      {/* Spacer for desktop to push bottom bar down */}
+      <div className="hidden md:block flex-1" />
 
       {/* Bottom bar */}
       <div className="relative z-20 flex justify-between items-end pb-7 sm:pb-8 md:pb-10 px-6 md:px-10 mt-auto">
