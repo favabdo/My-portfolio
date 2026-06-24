@@ -39,18 +39,24 @@ export default function HeroSection() {
         </FadeIn>
       </div>
 
-      {/* Portrait — fills all space between heading and bottom text */}
+      {/* Portrait — contain on mobile, cover on desktop */}
       <div className="relative z-10 flex-1 w-full overflow-hidden">
         <FadeIn delay={0.6} y={30} immediate className="absolute inset-0">
+          {/* Mobile: contain so full body shows */}
           <img
             src={portraitRealImg}
             alt="Abdallah Elsawy portrait"
-            className="w-full h-full select-none pointer-events-none"
+            className="w-full h-full select-none pointer-events-none md:hidden"
             draggable={false}
-            style={{
-              objectFit: "cover",
-              objectPosition: "center top",
-            }}
+            style={{ objectFit: "contain", objectPosition: "center bottom" }}
+          />
+          {/* Desktop: cover to fill all space */}
+          <img
+            src={portraitRealImg}
+            alt="Abdallah Elsawy portrait"
+            className="w-full h-full select-none pointer-events-none hidden md:block"
+            draggable={false}
+            style={{ objectFit: "cover", objectPosition: "center 15%" }}
           />
         </FadeIn>
       </div>
