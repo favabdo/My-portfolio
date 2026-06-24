@@ -56,19 +56,15 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
             <span className="text-[#D7E2EA]/50 uppercase tracking-widest text-xs">{project.type} · {project.category}</span>
             <h3 className="text-[#D7E2EA] font-medium uppercase text-base sm:text-xl md:text-2xl truncate">{project.name}</h3>
           </div>
-          <LiveProjectButton href={project.liveUrl ?? "#"} className="flex-shrink-0 hidden sm:inline-block" />
+          <LiveProjectButton href={project.liveUrl ?? "#"} className="flex-shrink-0" />
         </div>
 
-        <div className="sm:hidden mb-3">
-          <LiveProjectButton href={project.liveUrl ?? "#"} />
-        </div>
-
-        {/* Body: description left, gallery right */}
-        <div className="flex gap-3 sm:gap-4">
-          {/* Left: description text */}
-          <div className="flex flex-col gap-3" style={{ width: "40%" }}>
+: description + gallery — column on mobile, row on sm+ */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          {/* Description */}
+          <div className="sm:w-[40%]">
             {project.description ? (
-              <p className="text-[#D7E2EA]/70 text-sm sm:text-base leading-relaxed">
+              <p className="text-[#D7E2EA]/70 text-xs sm:text-sm md:text-base leading-relaxed line-clamp-6 sm:line-clamp-none">
                 {project.description}
               </p>
             ) : (
@@ -76,8 +72,8 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
             )}
           </div>
 
-          {/* Right: gallery trigger (full height) */}
-          <div style={{ width: "60%" }}>
+          {/* Gallery */}
+          <div className="sm:w-[60%]" style={{ minHeight: "clamp(120px, 22vw, 300px)" }}>
             {hasGallery ? (
               <ProjectGallery id={project.number} images={gallery} cover={coverImage} triggerClassName="w-full h-full rounded-[30px] sm:rounded-[40px] md:rounded-[50px]" />
             ) : (

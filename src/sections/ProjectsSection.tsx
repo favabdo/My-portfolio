@@ -40,7 +40,7 @@ const projects: ProjectData[] = [
     type: "Personal",
     visuals: ["camera", "code", "flow"],
     gallery: smartIntercomGallery,
-    description: "Add your project description here.",
+    description: "Developed a full-stack IoT smart home security and access control platform that enables real-time monitoring, remote door control, garage management, RFID authentication, and live video streaming. The system integrates ESP32-CAM, Arduino, Flutter, Firebase, and a custom Python WebSocket Server to deliver secure, low-latency communication between hardware devices and mobile/web applications. It features role-based access control, real-time notifications, cloud storage, live camera feeds, device analytics, and scalable backend infrastructure designed for modern smart home automation.\nTech Stack: Flutter, Firebase Authentication, Realtime Database, Firestore, Cloud Functions, Cloud Storage, Python, WebSockets, ESP32-CAM, Arduino, RFID RC522, Next.js, Tailwind CSS, IoT.",
   },
 ];
 
@@ -114,9 +114,22 @@ export default function ProjectsSection() {
       const expHeadingH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--exp-heading-h") || "0");
       sectionRef.current.style.setProperty("--proj-heading-h", `${expHeadingH + h}px`);
     };
+
+    // Run immediately, then re-run whenever the window resizes
+    // Also poll briefly on mount because --exp-heading-h may not be set yet
     measure();
+    let attempts = 0;
+    const poll = setInterval(() => {
+      measure();
+      attempts++;
+      if (attempts >= 10) clearInterval(poll);
+    }, 80);
+
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    return () => {
+      window.removeEventListener("resize", measure);
+      clearInterval(poll);
+    };
   }, []);
 
   return (
