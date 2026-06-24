@@ -40,30 +40,18 @@ export default function HeroSection() {
         </FadeIn>
       </div>
 
-      {/* Portrait */}
-      <Magnet
-        padding={80}
-        strength={3}
-        activeTransition="transform 0.3s ease-out"
-        inactiveTransition="transform 0.6s ease-in-out"
-        className="absolute z-10"
-        style={{
-          right: "5%",
-          top: "50%",
-          transform: "translateY(-50%)",
-          width: "clamp(130px, 18vw, 300px)",
-        }}
-      >
-        <FadeIn delay={0.6} y={30} immediate>
+      {/* Portrait — fills all space between heading and bottom text */}
+      <div className="relative z-10 flex-1 w-full overflow-hidden">
+        <FadeIn delay={0.6} y={30} immediate className="absolute inset-0">
           <img
             src={portraitRealImg}
             alt="Abdallah Elsawy portrait"
-            className="w-full select-none pointer-events-none"
+            className="w-full h-full select-none pointer-events-none"
             draggable={false}
-            style={{ objectFit: "contain", objectPosition: "top center" }}
+            style={{ objectFit: "contain", objectPosition: "center bottom" }}
           />
         </FadeIn>
-      </Magnet>
+      </div>
 
       {/* Bottom bar */}
       <div className="relative z-20 flex justify-between items-end pb-7 sm:pb-8 md:pb-10 px-6 md:px-10 mt-auto">
