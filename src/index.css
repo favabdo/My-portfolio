@@ -51,10 +51,13 @@ a {
   color: #0C0C0C;
 }
 
-/* Portrait objectPosition: mobile keeps top, desktop shifts to center */
-@media (min-width: 768px) {
+/* Portrait: mobile = cover full area, desktop = contain centered */
+@media (max-width: 767px) {
   .portrait-img {
-    object-position: center 15% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
   }
 }
 
