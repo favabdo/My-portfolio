@@ -28,10 +28,10 @@ export default function HeroSection() {
       </FadeIn>
 
       {/* Hero Heading */}
-      <div className="relative z-0 overflow-hidden mt-8 sm:mt-10 md:mt-8 w-full px-1 pointer-events-none">
+      <div className="relative z-0 overflow-hidden mt-8 sm:mt-10 md:mt-8 w-full md:w-[55%] px-1 pointer-events-none">
         <FadeIn delay={0.15} y={40} immediate>
           <h1
-            className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap"
+            className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap md:whitespace-normal"
             style={{ fontSize: "clamp(1.9rem, 9.5vw, 13rem)" }}
           >
             Hi, i&apos;m abdallah
