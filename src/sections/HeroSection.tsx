@@ -41,11 +41,11 @@ export default function HeroSection() {
 
       {/* Portrait — fills all space between heading and bottom text */}
       <div className="relative z-10 flex-1 w-full overflow-hidden">
-        <FadeIn delay={0.6} y={30} immediate className="absolute inset-0">
+        <FadeIn delay={0.6} y={30} immediate className="absolute inset-0 md:flex md:justify-center">
           <img
             src={portraitRealImg}
             alt="Abdallah Elsawy portrait"
-            className="portrait-img w-full h-full select-none pointer-events-none"
+            className="portrait-img select-none pointer-events-none"
             draggable={false}
             style={{
               objectFit: "cover",
