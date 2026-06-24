@@ -60,7 +60,7 @@ function NextProjectCard({ index, totalCards }: { index: number; totalCards: num
     <div
       ref={cardRef}
       className="sticky h-[85vh] flex items-center"
-      style={{ top: `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)` }}
+      style={{ top: `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)`, zIndex: 10 + index }}
     >
       <motion.div
         style={{ scale, minHeight: "340px" }}
