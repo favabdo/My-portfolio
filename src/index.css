@@ -55,10 +55,10 @@ a {
 @media (min-width: 768px) {
   .portrait-img {
     position: absolute !important;
-    bottom: 0 !important;
+    top: 0 !important;
     right: 10% !important;
     width: 40% !important;
-    height: 140% !important;
+    height: 200% !important;
     object-fit: cover !important;
     object-position: center top !important;
     margin: 0 !important;
