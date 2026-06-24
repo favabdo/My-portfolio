@@ -23,24 +23,24 @@ export default function HeroSection() {
       const el = wrapperRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      setCursor({ x, y });
+      setCursor({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
     });
   }, []);
 
   useEffect(() => () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); }, []);
 
-  // The spotlight radius in px (relative to displayed image size)
-  const spotlightR = 90;
-
-  // clip-path in px relative to the wrapper div
+  // Spotlight radius — feels like a "window" onto the 3D face
+  const R = 85;
   const clipPath = hovering
-    ? `circle(${spotlightR}px at ${cursor.x}px ${cursor.y}px)`
+    ? `circle(${R}px at ${cursor.x}px ${cursor.y}px)`
     : `circle(0px at ${cursor.x}px ${cursor.y}px)`;
 
   return (
     <section className="relative h-screen flex flex-col" style={{ overflowX: "clip" }}>
+
       {/* Navbar */}
       <FadeIn delay={0} y={-20} as="nav" immediate className="relative z-30">
         <div className="no-scrollbar flex justify-between items-center gap-4 overflow-x-auto px-6 md:px-10 pt-6 md:pt-8 pb-4 md:pb-5 border-b border-[#D7E2EA]/10">
@@ -68,46 +68,59 @@ export default function HeroSection() {
         </FadeIn>
       </div>
 
-      {/* Portrait in center */}
+      {/* Portrait — centered, pushed right slightly, bottom-anchored above contact */}
       <Magnet
-        padding={150}
+        padding={120}
         strength={3}
         activeTransition="transform 0.3s ease-out"
         inactiveTransition="transform 0.6s ease-in-out"
-        className="absolute left-[55%] top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-        style={{ maxHeight: "60vh" }}
+        className="absolute z-10"
+        style={{
+          // Position: horizontally centered-right, vertically fills gap between heading and bottom bar
+          left: "55%",
+          top: "50%",
+          transform: "translate(-50%, -48%)",
+          width: "clamp(200px, 30vw, 460px)",
+        }}
       >
         <FadeIn delay={0.6} y={30} immediate>
           {/*
-            Wrapper div — mouse events live here, clip-path applied here.
-            Both images are stacked; 3D is clipped by spotlight.
-            3D image is scaled DOWN and offset to align face with real face.
+            Wrapper: sized to real portrait's aspect ratio.
+            Mouse events here → clip-path on 3D overlay.
           */}
           <div
             ref={wrapperRef}
-            className="relative select-none"
+            className="relative w-full select-none"
             style={{
-              width: "clamp(180px, 28vw, 440px)",
-              aspectRatio: "1194 / 1317",
-              cursor: hovering ? "none" : "default",
+              aspectRatio: "1194 / 1317",  // real portrait ratio
+              cursor: "crosshair",
             }}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => { setHovering(false); }}
+            onMouseLeave={() => setHovering(false)}
           >
-            {/* Real photo — always visible, fills wrapper */}
+            {/* ── Layer 1: Real portrait, fills wrapper ── */}
             <img
               src={portraitRealImg}
               alt="Abdallah Elsawy portrait"
               className="absolute inset-0 w-full h-full pointer-events-none"
               draggable={false}
-              style={{ objectFit: "contain" }}
+              style={{ objectFit: "contain", objectPosition: "top center" }}
             />
 
             {/*
-              3D overlay — same wrapper size, but the 3D image itself is
-              scaled to ~64% and nudged down ~7% so the face aligns.
-              clip-path reveals only where cursor is.
+              ── Layer 2: 3D avatar ──
+              Sized and positioned so the FACE aligns with the real face.
+
+              Math (verified):
+              - Real image: 1194×1317, face center ≈ 27% from top, 50% horizontal
+              - 3D image:   443×600,  face center ≈ 40% from top, 50% horizontal
+              - 3D displayed width  = 52.4% of wrapper width
+              - 3D displayed height = 3D_w / (443/600) = 3D_w * 1.354
+              - Horizontal offset   = (100% - 52.4%) / 2 = 23.8% from left
+              - Vertical offset     ≈ 1–2% from top (almost perfectly aligned)
+
+              clip-path reveals only the spotlight circle under the cursor.
             */}
             <div
               className="absolute inset-0 pointer-events-none"
@@ -115,8 +128,8 @@ export default function HeroSection() {
                 clipPath,
                 WebkitClipPath: clipPath,
                 transition: hovering
-                  ? "clip-path 0.06s ease-out"
-                  : "clip-path 0.35s ease-in-out",
+                  ? "clip-path 0.05s linear"
+                  : "clip-path 0.4s ease-in-out",
               }}
             >
               <img
@@ -125,12 +138,11 @@ export default function HeroSection() {
                 draggable={false}
                 style={{
                   position: "absolute",
-                  // Scale 3D image to match face size of real photo
-                  width: "64%",
-                  // Center horizontally, push down ~7% to align faces
-                  left: "18%",
-                  top: "7%",
+                  width: "52.5%",            // face-size matched
+                  left: "23.75%",            // horizontally centered
+                  top: "1%",                 // slight downward nudge to align faces
                   objectFit: "contain",
+                  objectPosition: "top center",
                   pointerEvents: "none",
                 }}
               />
@@ -155,6 +167,7 @@ export default function HeroSection() {
           </div>
         </FadeIn>
       </div>
+
     </section>
   );
 }
