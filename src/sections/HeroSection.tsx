@@ -1,5 +1,4 @@
 import FadeIn from "../components/FadeIn";
-import Magnet from "../components/Magnet";
 import ContactButton from "../components/ContactButton";
 import portraitRealImg from "../assets/images/portrait-real.png";
 
