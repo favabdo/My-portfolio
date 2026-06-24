@@ -20,6 +20,14 @@ function App() {
       <MarqueeSection />
       <ServicesSection />
       <FloatingContactButtons />
+
+      {/* Footer */}
+      <footer className="w-full py-6 flex items-center justify-center border-t border-[#D7E2EA]/10">
+        <p className="text-[#D7E2EA]/50 text-sm tracking-widest uppercase font-light">
+          Designed by Abdullah Elsawy
+        </p>
+      </footer>
+
     </div>
   );
 }

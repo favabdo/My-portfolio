@@ -47,7 +47,10 @@ export default function HeroSection() {
             alt="Abdallah Elsawy portrait"
             className="w-full h-full select-none pointer-events-none"
             draggable={false}
-            style={{ objectFit: "contain", objectPosition: "center bottom" }}
+            style={{
+              objectFit: "cover",
+              objectPosition: "center top",
+            }}
           />
         </FadeIn>
       </div>
