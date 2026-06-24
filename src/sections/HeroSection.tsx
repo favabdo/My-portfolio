@@ -42,31 +42,26 @@ export default function HeroSection() {
 
       {/* Portrait */}
       <Magnet
-        padding={120}
+        padding={80}
         strength={3}
         activeTransition="transform 0.3s ease-out"
         inactiveTransition="transform 0.6s ease-in-out"
         className="absolute z-10"
         style={{
-          left: "55%",
+          right: "5%",
           top: "50%",
-          transform: "translate(-50%, -48%)",
-          width: "clamp(180px, 24vw, 380px)",
+          transform: "translateY(-50%)",
+          width: "clamp(130px, 18vw, 300px)",
         }}
       >
         <FadeIn delay={0.6} y={30} immediate>
-          <div
-            className="relative w-full select-none"
-            style={{ aspectRatio: "1194 / 1317" }}
-          >
-            <img
-              src={portraitRealImg}
-              alt="Abdallah Elsawy portrait"
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              draggable={false}
-              style={{ objectFit: "contain", objectPosition: "top center" }}
-            />
-          </div>
+          <img
+            src={portraitRealImg}
+            alt="Abdallah Elsawy portrait"
+            className="w-full select-none pointer-events-none"
+            draggable={false}
+            style={{ objectFit: "contain", objectPosition: "top center" }}
+          />
         </FadeIn>
       </Magnet>
 
