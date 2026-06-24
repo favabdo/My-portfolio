@@ -54,11 +54,14 @@ a {
 /* Portrait: mobile = cover full area, desktop = smaller centered-left */
 @media (min-width: 768px) {
   .portrait-img {
-    width: 45% !important;
-    height: 100% !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 10% !important;
+    width: 40% !important;
+    height: 110% !important;
     object-fit: cover !important;
-    object-position: center 70% !important;
-    margin-left: 15% !important;
+    object-position: center top !important;
+    margin: 0 !important;
   }
 }
 
