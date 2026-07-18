@@ -54,7 +54,7 @@ const projects: ProjectData[] = [
     liveUrl: "https://viora.abdullahelsawy.online",
     visuals: ["code", "chart", "flow"],
     gallery: vioraGallery,
-    description: "Built Viora, a modern web platform focused on clean UI/UX and a smooth, responsive user experience. The project features a fully custom front-end architecture, fast load times, thoughtful micro-interactions, and a polished visual identity, deployed independently on its own domain to demonstrate end-to-end design and development ownership.",
+    description: "Viora is a collaborative productivity platform that helps individuals and teams organize projects, manage tasks, save important resources, and track progress in one place. With real-time collaboration, project sharing, activity history, and smart link management, Viora ensures that ideas, tasks, and valuable resources never get lost.",
   },
 ];
 

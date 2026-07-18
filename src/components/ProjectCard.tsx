@@ -21,6 +21,21 @@ interface ProjectCardProps {
   totalCards: number;
 }
 
+const CATEGORY_COLORS: Record<string, string> = {
+  "AI Automation": "#7C5CFC",
+  "AIoT": "#22C1A0",
+  "Web Development": "#3B9EFF",
+};
+
+function getCategoryColor(category: string): string {
+  if (CATEGORY_COLORS[category]) return CATEGORY_COLORS[category];
+  // Fallback: derive a stable color from the category string
+  let hash = 0;
+  for (let i = 0; i < category.length; i++) hash = category.charCodeAt(i) + ((hash << 5) - hash);
+  const hue = Math.abs(hash) % 360;
+  return `hsl(${hue}, 70%, 60%)`;
+}
+
 export default function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -36,6 +51,7 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
   const coverImage = gallery[7] ?? gallery[0];
 
   const stickyTop = `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)`;
+  const categoryColor = getCategoryColor(project.category);
 
   return (
     <div
@@ -53,8 +69,20 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
             {project.number}
           </span>
           <div className="flex flex-col gap-0.5 flex-1 min-w-0">
-            <span className="text-[#D7E2EA]/50 uppercase tracking-widest text-xs">{project.type} · {project.category}</span>
-            <h3 className="text-[#D7E2EA] font-medium uppercase text-base sm:text-xl md:text-2xl">{project.name}</h3>
+            <span className="text-[#D7E2EA]/50 uppercase tracking-widest text-xs">{project.type}</span>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="text-[#D7E2EA] font-medium uppercase text-base sm:text-xl md:text-2xl">{project.name}</h3>
+              <span
+                className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wide whitespace-nowrap"
+                style={{
+                  color: categoryColor,
+                  backgroundColor: `${categoryColor}1A`,
+                  border: `1px solid ${categoryColor}66`,
+                }}
+              >
+                {project.category}
+              </span>
+            </div>
           </div>
           <LiveProjectButton href={project.liveUrl ?? "#"} className="flex-shrink-0" />
         </div>
