@@ -1,7 +1,8 @@
-import { WhatsAppIcon, GmailIcon } from "./BrandIcons";
+import { WhatsAppIcon, GmailIcon, LinkedInIcon } from "./BrandIcons";
 
 const PHONE = "201061163091";
 const EMAIL = "abdallah666mo@gmail.com";
+const LINKEDIN = "http://www.linkedin.com/in/abdullah-mustafa-b02650365";
 
 interface ContactButtonProps {
   className?: string;
@@ -33,6 +34,17 @@ export default function ContactButton({ className = "" }: ContactButtonProps) {
         style={{ background: "#0C0C0C" }}
       >
         <GmailIcon size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />
+      </a>
+
+      <a
+        href={LINKEDIN}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Visit LinkedIn profile"
+        className="flex items-center justify-center rounded-full p-3 sm:p-3.5 md:p-4 text-white outline outline-2 -outline-offset-[3px] outline-white transition-transform duration-200 hover:scale-[1.06] active:scale-[0.97]"
+        style={{ background: "#0A66C2" }}
+      >
+        <LinkedInIcon size={18} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />
       </a>
     </div>
   );
