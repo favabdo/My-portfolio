@@ -26,9 +26,23 @@ const vioraGallery = sortedProjectImages
   .filter((img) => img.num >= 36 && img.num <= 46)
   .map((img) => img.src);
 
+const nileChatGallery = sortedProjectImages
+  .filter((img) => img.num >= 47 && img.num <= 54)
+  .map((img) => img.src);
+
 const projects: ProjectData[] = [
   {
     number: "01",
+    category: "CRM / Support Platform",
+    name: "Nile Chat All in One",
+    type: "Client",
+    liveUrl: "https://www.niletechno.com/nilechat",
+    visuals: ["chart", "table", "flow"],
+    gallery: nileChatGallery,
+    description: "Designed and developed a complete customer support and CRM platform that centralizes multi-channel customer communications, contract management, task tracking, and automated reporting. The system enables support teams to manage customer interactions from a single interface, streamline workflows, improve response efficiency, and maintain comprehensive customer records, while providing a scalable foundation for AI-powered support automation and business operations management.",
+  },
+  {
+    number: "02",
     category: "AI Automation",
     name: "Nile Techno Reports",
     type: "Client",
@@ -38,7 +52,7 @@ const projects: ProjectData[] = [
     description: "Designed and developed a complete customer support analytics platform consisting of a FastAPI backend service and a Django web dashboard. The backend automatically analyzes resolved customer conversations using AI and stores structured insights, while the Django dashboard visualizes the collected data through reports, performance metrics, customer analytics, and management tools, enabling data-driven decision-making for support teams.",
   },
   {
-    number: "02",
+    number: "03",
     category: "AIoT",
     name: "Smart Intercom System",
     type: "Personal",
@@ -47,7 +61,7 @@ const projects: ProjectData[] = [
     description: "Developed a full-stack IoT smart home security and access control platform that enables real-time monitoring, remote door control, garage management, RFID authentication, and live video streaming. The system integrates ESP32-CAM, Arduino, Flutter, Firebase, and a custom Python WebSocket Server to deliver secure, low-latency communication between hardware devices and mobile/web applications. It features role-based access control, real-time notifications, cloud storage, live camera feeds, device analytics, and scalable backend infrastructure designed for modern smart home automation.\nTech Stack: Flutter, Firebase Authentication, Realtime Database, Firestore, Cloud Functions, Cloud Storage, Python, WebSockets, ESP32-CAM, Arduino, RFID RC522, Next.js, Tailwind CSS, IoT.",
   },
   {
-    number: "03",
+    number: "04",
     category: "Web Development",
     name: "Viora",
     type: "Personal",
