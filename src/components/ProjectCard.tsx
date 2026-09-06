@@ -78,6 +78,7 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
                   color: categoryColor,
                   backgroundColor: `${categoryColor}1A`,
                   border: `1px solid ${categoryColor}66`,
+                  lineHeight: "1.4",
                 }}
               >
                 {project.category}
