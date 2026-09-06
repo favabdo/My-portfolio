@@ -73,12 +73,11 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-[#D7E2EA] font-medium uppercase text-base sm:text-xl md:text-2xl">{project.name}</h3>
               <span
-                className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wide block sm:inline-block mt-1 sm:mt-0"
+                className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wide block sm:inline-block mt-1 sm:mt-0 min-h-[32px]"
                 style={{
                   color: categoryColor,
                   backgroundColor: `${categoryColor}1A`,
                   border: `1px solid ${categoryColor}66`,
-                  lineHeight: "1.4",
                 }}
               >
                 {project.category}
@@ -93,7 +92,7 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
           {/* Description */}
           <div className="sm:w-[40%]">
             {project.description ? (
-              <p className="text-[#D7E2EA]/70 text-xs sm:text-sm md:text-base leading-relaxed overflow-y-auto max-h-[18vh] sm:max-h-none pr-1" style={{ scrollbarWidth: "none" }}>
+              <p className="text-[#D7E2EA]/70 text-xs sm:text-sm md:text-base leading-relaxed overflow-y-auto max-h-[25vh] sm:max-h-none pr-1" style={{ scrollbarWidth: "none" }}>
                 {project.description}
               </p>
             ) : (
