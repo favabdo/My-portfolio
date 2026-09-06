@@ -73,7 +73,7 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-[#D7E2EA] font-medium uppercase text-base sm:text-xl md:text-2xl">{project.name}</h3>
               <span
-                className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wide whitespace-nowrap"
+                className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wide block sm:inline-block mt-1 sm:mt-0"
                 style={{
                   color: categoryColor,
                   backgroundColor: `${categoryColor}1A`,
