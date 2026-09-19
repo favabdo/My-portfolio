@@ -28,13 +28,23 @@ const CATEGORY_COLORS: Record<string, string> = {
   "Desktop Application": "#E8833A",
 };
 
+function hslToHex(h: number, s: number, l: number): string {
+  const a = (s / 100) * Math.min(l / 100, 1 - l / 100);
+  const channel = (n: number) => {
+    const k = (n + h / 30) % 12;
+    const c = l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+    return Math.round(255 * c).toString(16).padStart(2, "0");
+  };
+  return `#${channel(0)}${channel(8)}${channel(4)}`;
+}
+
 function getCategoryColor(category: string): string {
   if (CATEGORY_COLORS[category]) return CATEGORY_COLORS[category];
   // Fallback: derive a stable color from the category string
   let hash = 0;
   for (let i = 0; i < category.length; i++) hash = category.charCodeAt(i) + ((hash << 5) - hash);
   const hue = Math.abs(hash) % 360;
-  return `hsl(${hue}, 70%, 60%)`;
+  return hslToHex(hue, 70, 60);
 }
 
 export default function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
@@ -78,7 +88,7 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
                 return (
                   <span
                     key={category}
-                    className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wide block sm:inline-block mt-1 sm:mt-0 min-h-[32px]"
+                    className="px-2.5 py-0.5 rounded-full whitespace-nowrap inline-flex items-center text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wide mt-1 sm:mt-0 min-h-[32px]"
                     style={{
                       color: categoryColor,
                       backgroundColor: `${categoryColor}1A`,

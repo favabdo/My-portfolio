@@ -37,7 +37,7 @@ const whatsappSenderGallery = sortedProjectImages
 const projects: ProjectData[] = [
   {
     number: "01",
-    category: "CRM / Support Platform",
+    category: ["Chat Application", "CRM Application"],
     name: "Nile Chat All in One",
     type: "Client",
     liveUrl: "https://www.niletechno.com/nilechat",
@@ -50,6 +50,7 @@ const projects: ProjectData[] = [
     category: ["Desktop Application", "AI Automation"],
     name: "WhatsApp Sender",
     type: "Personal",
+    liveUrl: "https://github.com/favabdo/Whatsapp-sender-client/releases/tag/v1.1.3",
     visuals: ["chart", "table", "flow"],
     gallery: whatsappSenderGallery,
     description: "WhatsApp Sender is a desktop application designed to streamline bulk WhatsApp communication for businesses and support teams. The platform enables users to create messaging campaigns, import contact lists, schedule message delivery, track sending status in real time, and review detailed campaign history and analytics. The system includes user authentication, campaign management, contact handling, message scheduling, attachment support, delivery tracking, and reporting features. It provides visibility into successful and failed deliveries, helping organizations manage large-scale communication efficiently while maintaining a simple and user-friendly interface. Built as a modern desktop solution, the application focuses on reliability, ease of use, and operational efficiency for teams that need to communicate with customers at scale.",
