@@ -30,6 +30,10 @@ const nileChatGallery = sortedProjectImages
   .filter((img) => img.num >= 47 && img.num <= 54)
   .map((img) => img.src);
 
+const whatsappSenderGallery = sortedProjectImages
+  .filter((img) => img.num >= 55 && img.num <= 61)
+  .map((img) => img.src);
+
 const projects: ProjectData[] = [
   {
     number: "01",
@@ -43,6 +47,15 @@ const projects: ProjectData[] = [
   },
   {
     number: "02",
+    category: ["Desktop Application", "AI Automation"],
+    name: "WhatsApp Sender",
+    type: "Personal",
+    visuals: ["chart", "table", "flow"],
+    gallery: whatsappSenderGallery,
+    description: "WhatsApp Sender is a desktop application designed to streamline bulk WhatsApp communication for businesses and support teams. The platform enables users to create messaging campaigns, import contact lists, schedule message delivery, track sending status in real time, and review detailed campaign history and analytics. The system includes user authentication, campaign management, contact handling, message scheduling, attachment support, delivery tracking, and reporting features. It provides visibility into successful and failed deliveries, helping organizations manage large-scale communication efficiently while maintaining a simple and user-friendly interface. Built as a modern desktop solution, the application focuses on reliability, ease of use, and operational efficiency for teams that need to communicate with customers at scale.",
+  },
+  {
+    number: "03",
     category: "AI Automation",
     name: "Nile Techno Reports",
     type: "Client",
@@ -52,7 +65,7 @@ const projects: ProjectData[] = [
     description: "Designed and developed a complete customer support analytics platform consisting of a FastAPI backend service and a Django web dashboard. The backend automatically analyzes resolved customer conversations using AI and stores structured insights, while the Django dashboard visualizes the collected data through reports, performance metrics, customer analytics, and management tools, enabling data-driven decision-making for support teams.",
   },
   {
-    number: "03",
+    number: "04",
     category: "AIoT",
     name: "Smart Intercom System",
     type: "Personal",
@@ -61,7 +74,7 @@ const projects: ProjectData[] = [
     description: "Developed a full-stack IoT smart home security and access control platform that enables real-time monitoring, remote door control, garage management, RFID authentication, and live video streaming. The system integrates ESP32-CAM, Arduino, Flutter, Firebase, and a custom Python WebSocket Server to deliver secure, low-latency communication between hardware devices and mobile/web applications. It features role-based access control, real-time notifications, cloud storage, live camera feeds, device analytics, and scalable backend infrastructure designed for modern smart home automation.\nTech Stack: Flutter, Firebase Authentication, Realtime Database, Firestore, Cloud Functions, Cloud Storage, Python, WebSockets, ESP32-CAM, Arduino, RFID RC522, Next.js, Tailwind CSS, IoT.",
   },
   {
-    number: "04",
+    number: "05",
     category: "Web Development",
     name: "Viora",
     type: "Personal",

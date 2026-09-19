@@ -6,7 +6,7 @@ import ProjectGallery from "./ProjectGallery";
 
 export interface ProjectData {
   number: string;
-  category: string;
+  category: string | string[];
   name: string;
   type: "Client" | "Personal";
   liveUrl?: string;
@@ -25,6 +25,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   "AI Automation": "#7C5CFC",
   "AIoT": "#22C1A0",
   "Web Development": "#3B9EFF",
+  "Desktop Application": "#E8833A",
 };
 
 function getCategoryColor(category: string): string {
@@ -51,12 +52,12 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
   const coverImage = gallery[7] ?? gallery[0];
 
   const stickyTop = `calc(var(--proj-heading-h, 7rem) + ${index * 1.75}rem)`;
-  const categoryColor = getCategoryColor(project.category);
+  const categories = Array.isArray(project.category) ? project.category : [project.category];
 
   return (
     <div
       ref={cardRef}
-      className="sticky h-[85vh] flex items-center"
+      className="sticky h-[70vh] sm:h-[85vh] flex items-center"
       style={{ top: stickyTop, zIndex: 10 + index }}
     >
       <motion.div
@@ -72,16 +73,22 @@ export default function ProjectCard({ project, index, totalCards }: ProjectCardP
             <span className="text-[#D7E2EA]/50 uppercase tracking-widest text-xs">{project.type}</span>
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-[#D7E2EA] font-medium uppercase text-base sm:text-xl md:text-2xl">{project.name}</h3>
-              <span
-                className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wide block sm:inline-block mt-1 sm:mt-0 min-h-[32px]"
-                style={{
-                  color: categoryColor,
-                  backgroundColor: `${categoryColor}1A`,
-                  border: `1px solid ${categoryColor}66`,
-                }}
-              >
-                {project.category}
-              </span>
+              {categories.map((category) => {
+                const categoryColor = getCategoryColor(category);
+                return (
+                  <span
+                    key={category}
+                    className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-wide block sm:inline-block mt-1 sm:mt-0 min-h-[32px]"
+                    style={{
+                      color: categoryColor,
+                      backgroundColor: `${categoryColor}1A`,
+                      border: `1px solid ${categoryColor}66`,
+                    }}
+                  >
+                    {category}
+                  </span>
+                );
+              })}
             </div>
           </div>
           <LiveProjectButton href={project.liveUrl ?? "#"} className="flex-shrink-0" />
